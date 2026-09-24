@@ -396,8 +396,16 @@ svg{display:block}
         <button data-v="manager">Менеджер</button>
       </div>
     </div>
+    <div class="pgroup">
+      <label>Момент</label>
+      <div class="seg" data-key="moment">
+        <button data-v="ok">Комплекса хватает</button>
+        <button data-v="month">Остался месяц</button>
+      </div>
+      <div class="phint" id="hintMoment"></div>
+    </div>
     <div class="pactions">
-      <button class="pbtn" id="btnPush">Прислать пуш за месяц до конца</button>
+      <button class="pbtn" id="btnPush">Показать пуш на экране блокировки</button>
       <div class="stage-nav" id="stageNav">
         <button id="stPrev" aria-label="Назад"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
         <span id="stLabel">Этап 1 из 4</span>
@@ -429,7 +437,7 @@ const CTIMES = ['19:20 - 20:00','20:00 - 20:40'];
 const DOCTOR = {name:'Вероника Ковалева', role:'Врач эндокринолог-диетолог'};
 
 const S = {
-  tariff:'12-2', cycle:2, checkup:0, launch:'client',
+  tariff:'12-2', cycle:2, checkup:0, launch:'client', moment:'month',
   pushed:false, launched:false, stage:-1,
   screen:'home', sheet:null, sheetMode:'full', step:0, editAddr:false,
   addr:ADDR0, anketa:'без изменений',
@@ -586,11 +594,11 @@ function intakeCard(days, extra){
 
 function programCard(){
   if (!S.launched){
-    const extra = S.pushed ? `<div class="srow"><div class="ico">${I.list}</div><div class="body">
+    const extra = S.moment === 'month' ? `<div class="srow"><div class="ico">${I.list}</div><div class="body">
       <h2>Пора заказать следующий комплекс</h2>
       <div class="sub">Витаминов хватит до 24 октября. Производство и доставка занимают около месяца, закажите сейчас, чтобы не делать перерыв</div>
       <div><button class="btn" data-act="openOrder">Заказать</button></div></div></div>` : '';
-    return intakeCard(30, extra);
+    return intakeCard(S.moment === 'month' ? 30 : 58, extra);
   }
   const st = stages(), cur = st[S.stage];
   if (cur.ok) return intakeCard(90);
@@ -805,10 +813,11 @@ function renderPanel(){
   });
   document.getElementById('hintCycle').textContent = tariff().cycles === 2 ? 'В тарифе на 6 месяцев два комплекса, второй и последний' : '';
   document.getElementById('hintChk').textContent = checkupsLeftBeforeLaunch() === 0 ? 'Чекапы по тарифу уже использованы' : (defaultCheckup() ? 'По плану тарифа в этом цикле чекап' : 'По плану тарифа в этом цикле чекапа нет');
+  document.getElementById('hintMoment').textContent = S.moment === 'month' ? 'Блок «Пора заказать» в карточке виден и без пуша' : 'Комплекса хватает больше чем на месяц, напоминаний нет';
   const push = document.getElementById('btnPush');
-  push.hidden = S.launch === 'manager' || S.launched;
+  push.hidden = S.launch === 'manager' || S.launched || S.moment !== 'month';
   push.disabled = S.pushed;
-  push.textContent = S.pushed ? 'Пуш отправлен, повторно не беспокоим' : 'Прислать пуш за месяц до конца';
+  push.textContent = S.pushed ? 'Пуш отправлен, повторно не беспокоим' : 'Показать пуш на экране блокировки';
   const nav = document.getElementById('stageNav');
   nav.hidden = !S.launched;
   if (S.launched){
@@ -845,6 +854,7 @@ document.getElementById('panel').addEventListener('click', e => {
     else if (key === 'cycle'){ S.cycle = Number(v); S.checkup = defaultCheckup(); }
     else if (key === 'checkup'){ S.checkup = Number(v); }
     else if (key === 'launch'){ S.launch = v; }
+    else if (key === 'moment'){ S.moment = v; }
     if (checkupsLeftBeforeLaunch() === 0) S.checkup = 0;
     resetFlow(); render(); return;
   }
