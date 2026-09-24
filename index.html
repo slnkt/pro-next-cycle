@@ -12,11 +12,11 @@
   --blue:#1098D4;
   --blue-light:#63BCE3;
   --dark:#05131A;
-  --muted:#7D919D;
-  --bg:#ECF3F8;
-  --field:#F3F6F9;
+  --muted:#8A9096;
+  --bg:#F2F3F5;
+  --field:#F3F4F6;
   --accent-bg:#EDF8FC;
-  --line:#DCE9F1;
+  --line:#E6E8EB;
   --green:#27AE60;
   --error:#d10714;
   --radius:20px;
@@ -39,7 +39,6 @@ svg{display:block}
 .title h1{font-size:20px;font-weight:600}
 .title span{font-size:13px;color:var(--muted)}
 
-/* panel */
 .panel{
   background:#fff;border-radius:var(--radius);
   padding:18px 20px;margin-bottom:28px;
@@ -82,10 +81,7 @@ svg{display:block}
   box-shadow:0 30px 70px rgba(5,19,26,.28),inset 0 0 0 2px #2a2a2a;
   position:relative;
 }
-.screen{
-  width:100%;height:100%;border-radius:46px;overflow:hidden;
-  background:var(--bg);position:relative;
-}
+.screen{width:100%;height:100%;border-radius:46px;overflow:hidden;background:var(--bg);position:relative}
 .island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:120px;height:35px;border-radius:20px;background:#000;z-index:20}
 .sbar{
   position:absolute;top:0;left:0;right:0;height:54px;z-index:15;
@@ -94,101 +90,107 @@ svg{display:block}
 }
 .sbar .ic{display:flex;align-items:center;gap:6px}
 .screen.lock .sbar{color:#fff}
-.screen:not(.lock) .sbar{background:linear-gradient(var(--bg) 72%,rgba(236,243,248,0))}
+.screen:not(.lock) .sbar{background:linear-gradient(var(--bg) 72%,rgba(242,243,245,0))}
 .homebar{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:var(--dark);z-index:30;opacity:.9}
 .screen.lock .homebar{background:#fff}
 
-.app{position:absolute;inset:0;overflow-y:auto;padding:64px 16px 112px;scrollbar-width:none}
+.app{position:absolute;inset:0;overflow-y:auto;padding:58px 14px 110px;scrollbar-width:none}
 .app::-webkit-scrollbar{display:none}
 
-/* header */
-.hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+/* header (как в приложении) */
+.hdr{display:flex;align-items:center;justify-content:space-between;margin:6px 2px 12px}
 .hdr .logo{height:22px;width:auto;fill:var(--dark)}
-.hdr .right{display:flex;align-items:center;gap:10px}
-.icbtn{width:38px;height:38px;border-radius:50%;background:#fff;border:0;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.ava{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue-light));color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center}
-.greet{font-size:22px;font-weight:600;line-height:1.25;margin-bottom:16px}
+.hdr .right{display:flex;align-items:center;gap:8px}
+.icbtn{width:40px;height:40px;border-radius:50%;background:#fff;border:0;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
+.icbtn .bd{position:absolute;top:-4px;right:-2px;min-width:18px;height:18px;border-radius:9px;background:var(--blue);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px}
 
-/* cards */
-.card{background:#fff;border-radius:var(--radius);padding:18px 16px;margin-bottom:12px}
-.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:12px}
-.card h2{font-size:18px;font-weight:600;line-height:1.25}
-.card h3{font-size:15px;font-weight:600}
-.chip{display:inline-flex;align-items:center;font-size:11px;font-weight:600;border-radius:12px;padding:4px 9px;background:var(--accent-bg);color:var(--dark);white-space:nowrap}
-.pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;border-radius:14px;padding:5px 10px;background:var(--accent-bg);color:var(--dark);white-space:nowrap;flex:none}
-.pill i{width:7px;height:7px;border-radius:50%;background:var(--blue)}
-.pill.ok i{background:var(--green)}
-.pill.ok{background:#EAF7EF}
+/* stories */
+.stories{display:flex;gap:8px;overflow:hidden;margin:0 -14px 14px;padding:0 14px}
+.story{flex:none;width:110px;height:82px;border-radius:14px;position:relative;overflow:hidden}
+.story span{position:absolute;left:0;right:0;bottom:0;padding:22px 8px 8px;font-size:11.5px;font-weight:600;color:#fff;text-align:right;line-height:1.2;background:linear-gradient(transparent,rgba(0,0,0,.6))}
+.story.s1{background:radial-gradient(circle at 30% 30%,#8FB9D6,#2E5C7A 70%)}
+.story.s2{background:radial-gradient(circle at 60% 40%,#F0B36B,#B5541E 75%)}
+.story.s3{background:radial-gradient(circle at 40% 30%,#E5D3C0,#8C6B55 75%)}
+.story.s4{width:16px;background:linear-gradient(180deg,var(--blue),var(--blue-light))}
 
-.left{background:var(--accent-bg);border-radius:14px;padding:12px 14px;margin-bottom:12px}
-.left .cap{font-size:11.5px;font-weight:600;color:var(--muted);margin-bottom:8px}
-.left .cols{display:flex;gap:8px}
-.left .col{flex:1;min-width:0}
-.left .num{font-size:22px;font-weight:600;line-height:1;transition:transform .3s}
-.left .num small{font-size:12px;font-weight:500;color:var(--muted);margin-left:3px}
-.left .lab{font-size:11.5px;color:var(--muted);margin-top:4px}
-.left .col.bump .num{animation:bump .5s ease}
-@keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.18)}100%{transform:scale(1)}}
-
-.intake{font-size:13px;line-height:1.5;color:#3f5361}
-.intake b{color:var(--dark);font-weight:600}
-
-/* progress block */
-.prog{margin-top:4px}
-.segs{display:flex;gap:4px;margin-bottom:12px}
-.segs i{flex:1;height:4px;border-radius:2px;background:var(--line)}
-.segs i.on{background:var(--blue)}
-.segs i.cur{background:linear-gradient(90deg,var(--blue),var(--blue-light))}
-.stage-t{font-size:15px;font-weight:600;margin-bottom:4px}
-.stage-d{font-size:13px;line-height:1.5;color:#3f5361}
-.stage-d b{font-weight:600;color:var(--dark)}
-.row-btns{display:flex;gap:8px;margin-top:12px}
+/* program card */
+.pcard{background:#fff;border:1px dashed var(--dark);border-radius:var(--radius);padding:14px;margin-bottom:12px}
+.tag{display:flex;align-items:center;justify-content:space-between;background:var(--field);border-radius:30px;padding:8px 8px 8px 16px;margin-bottom:14px}
+.tag b{display:block;font-size:12px;font-weight:700;letter-spacing:.03em}
+.tag span{display:block;font-size:11px;color:var(--muted);margin-top:1px}
+.tag .chev{width:32px;height:32px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center}
+.bar{height:6px;border-radius:3px;background:var(--line);margin:0 2px 18px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:3px;background:var(--blue);transition:width .4s}
+.srow{display:flex;gap:14px;padding:0 2px}
+.srow + .srow{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+.srow .ico{flex:none;width:48px;height:48px;border-radius:50%;background:var(--field);display:flex;align-items:center;justify-content:center}
+.srow .ico.ava{background:linear-gradient(135deg,var(--blue),var(--blue-light));color:#fff;font-size:13px;font-weight:600}
+.srow .body{flex:1;min-width:0}
+.srow h2{font-size:19px;font-weight:600;line-height:1.22}
+.srow .sub{font-size:14.5px;line-height:1.4;margin-top:4px}
+.srow .sub b{font-weight:600}
+.lnk{background:none;border:0;padding:0;font-size:14.5px;font-weight:600;color:var(--blue);cursor:pointer;display:inline-block;margin-top:12px}
+.lnk.sm{font-size:13px;margin-top:8px;margin-right:14px}
+.note{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:14.5px;line-height:1.4}
 .btn{
-  border:0;border-radius:24px;padding:13px 18px;font-size:13.5px;font-weight:600;cursor:pointer;
-  background:linear-gradient(90deg,var(--blue),var(--blue-light));color:#fff;
-  transition:transform .12s;width:100%;
+  border:0;border-radius:26px;height:50px;padding:0 28px;font-size:15.5px;font-weight:600;cursor:pointer;
+  background:linear-gradient(90deg,var(--blue-light),var(--blue));color:#fff;
+  transition:transform .12s;display:inline-flex;align-items:center;justify-content:center;
 }
 .btn:active{transform:scale(.97)}
-.btn.sec{background:var(--accent-bg);color:var(--dark)}
+.btn.full{width:100%}
+.btn.sec{background:var(--field);color:var(--dark)}
 .btn.white{background:#fff;color:var(--dark)}
-.btn.sm{width:auto;padding:11px 16px;font-size:13px}
+.srow .btn{margin-top:14px}
 
-/* order block */
-.order{
-  margin-top:14px;border-radius:16px;padding:16px;
-  background:linear-gradient(135deg,var(--blue),var(--blue-light));color:#fff;
+/* intake (тёмная карточка, как в приложении) */
+.icard{background:#fff;border-radius:var(--radius);padding:0 14px 6px;margin-bottom:12px;overflow:hidden}
+.dark{
+  margin:0 -14px 12px;padding:16px;height:170px;border-radius:var(--radius);
+  background:radial-gradient(90% 120% at 85% 110%,#1D7FB3 0%,#0C3A52 38%,#061620 70%,#050C10 100%);
+  color:#fff;display:flex;flex-direction:column;justify-content:space-between;
 }
-.order h4{font-size:15px;font-weight:600;line-height:1.3;margin-bottom:6px}
-.order p{font-size:12.5px;line-height:1.5;opacity:.95;margin-bottom:12px}
+.dark .dtag{align-self:flex-start;background:rgba(255,255,255,.16);border-radius:20px;padding:8px 12px;font-size:11px;font-weight:700;letter-spacing:.03em}
+.dark .drow{display:flex;align-items:center;justify-content:space-between}
+.dark .days{font-size:34px;font-weight:400;line-height:1}
+.sh{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin:4px 2px 12px}
+.sh .chev{width:20px;height:20px;border-radius:50%;background:var(--field);display:flex;align-items:center;justify-content:center}
+.cal{display:flex;justify-content:space-between;margin-bottom:18px}
+.cal .d{flex:1;text-align:center;padding:6px 0 8px;border-radius:10px;font-size:12px;font-weight:600}
+.cal .d span{display:block;font-size:14.5px;margin:3px 0 8px}
+.cal .d.past{color:var(--dark)}
+.cal .d.today{background:var(--accent-bg)}
+.cal .d.fut{color:#B9BEC4}
+.cal .d svg{margin:0 auto}
+.left{display:flex;gap:6px;margin-bottom:6px}
+.left .col{flex:1;background:var(--field);border-radius:14px;padding:12px 10px}
+.left .num{font-size:22px;font-weight:600;line-height:1}
+.left .num small{font-size:12px;font-weight:500;color:var(--muted);margin-left:3px}
+.left .lab{font-size:11px;color:var(--muted);margin-top:4px}
+.left .col.bump .num{animation:bump .5s ease}
+@keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.18)}100%{transform:scale(1)}}
+.icard .srow{padding:16px 2px 12px;margin-top:6px;border-top:1px solid var(--line)}
+.pcard .sh.left-h{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
 
-/* manager block */
-.mgr{margin-top:14px;border-radius:16px;padding:14px;background:var(--accent-bg);display:flex;gap:12px}
-.mgr .ava{flex:none;width:40px;height:40px;font-size:12px}
-.mgr h4{font-size:13.5px;font-weight:600;margin-bottom:4px;line-height:1.3}
-.mgr p{font-size:12.5px;line-height:1.5;color:#3f5361}
-.mgr .links{display:flex;gap:14px;margin-top:8px;flex-wrap:wrap}
-.lnk{background:none;border:0;padding:0;font-size:12.5px;font-weight:600;color:var(--blue);cursor:pointer}
-
-/* analytics */
-.sec-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
-.sec-head .lnk{font-size:12px}
-.mk{display:flex;align-items:center;gap:12px;padding:9px 0;border-top:1px solid var(--field)}
-.mk:first-of-type{border-top:0}
-.mk .n{flex:1;min-width:0}
-.mk .n b{display:block;font-size:13px;font-weight:600}
-.mk .n span{font-size:11.5px;color:var(--muted)}
-.mk .bar{width:76px;height:6px;border-radius:3px;background:var(--line);position:relative;flex:none}
-.mk .bar i{position:absolute;top:-3px;width:12px;height:12px;border-radius:50%;background:var(--blue);border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
-.mk .bar i.low{background:#F2994A}
-.mk .v{font-size:12px;font-weight:600;width:82px;text-align:right;flex:none;white-space:nowrap}
-
-/* recs */
-.rail{display:flex;gap:10px;overflow-x:auto;margin:0 -16px;padding:0 16px 4px;scrollbar-width:none;scroll-snap-type:x mandatory}
-.rail::-webkit-scrollbar{display:none}
-.rc{flex:none;width:210px;background:#fff;border-radius:16px;padding:14px;scroll-snap-align:start}
-.rc .ico{width:36px;height:36px;border-radius:12px;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;margin-bottom:10px}
-.rc b{display:block;font-size:13.5px;font-weight:600;margin-bottom:4px}
-.rc p{font-size:12px;line-height:1.45;color:#3f5361}
+/* analytics / recs (как в приложении) */
+.card{background:#fff;border-radius:var(--radius);padding:16px 14px;margin-bottom:12px}
+.mk{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.mk b{display:block;font-size:14.5px;font-weight:600}
+.mk span{font-size:13.5px}
+.chip{display:inline-flex;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-radius:12px;padding:5px 10px;background:#E8F7EE;color:#1F8F4E;margin-top:4px}
+.range{position:relative;height:1px;background:var(--dark);margin:16px 0 14px;width:50%}
+.range i{position:absolute;right:-6px;top:-12px;border:6px solid transparent;border-top:8px solid var(--green)}
+.gbox{background:var(--field);border-radius:14px;padding:14px}
+.gbox small{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+.gbox p{font-size:14.5px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.dots{display:flex;justify-content:center;gap:5px;margin-top:12px}
+.dots i{width:5px;height:5px;border-radius:50%;background:#C9CDD2}
+.dots i:first-child{background:var(--dark)}
+.rec{font-size:14.5px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rdate{font-size:12.5px;color:var(--muted);text-align:right;margin-top:10px}
+.card.col{padding:14px}
+.card.col .sh{margin:0}
+.disc{font-size:10.5px;line-height:1.4;color:var(--muted);padding:0 2px 8px}
 
 /* tabbar */
 .tabbar{
@@ -196,25 +198,22 @@ svg{display:block}
   background:#fff;border-top:1px solid var(--line);
   display:flex;justify-content:space-around;padding:10px 10px 0;
 }
-.tab{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10.5px;font-weight:500;color:var(--muted);background:none;border:0;cursor:pointer;width:70px}
-.tab svg{stroke:var(--muted)}
+.tab{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10.5px;font-weight:500;color:#5C6470;background:none;border:0;cursor:pointer;width:72px}
+.tab svg{stroke:#5C6470}
 .tab.on{color:var(--blue)}
 .tab.on svg{stroke:var(--blue)}
 
-/* ================= lock screen ================= */
+/* ================= lock ================= */
 .lock{
   position:absolute;inset:0;
   background:radial-gradient(120% 70% at 30% 0%,#1B5E86 0%,#0B2A3C 45%,#05131A 100%);
-  color:#fff;display:flex;flex-direction:column;align-items:center;
-  padding:92px 18px 60px;
+  color:#fff;display:flex;flex-direction:column;align-items:center;padding:92px 18px 60px;
 }
 .lock .date{font-size:16px;font-weight:500;opacity:.9}
 .lock .time{font-size:82px;font-weight:500;letter-spacing:-1px;line-height:1.05;margin-bottom:30px}
 .notif{
-  width:100%;border-radius:22px;padding:12px 14px;
-  background:rgba(255,255,255,.9);color:var(--dark);
-  display:flex;gap:12px;cursor:pointer;
-  box-shadow:0 8px 28px rgba(0,0,0,.25);
+  width:100%;border-radius:22px;padding:12px 14px;background:rgba(255,255,255,.92);color:var(--dark);
+  display:flex;gap:12px;cursor:pointer;box-shadow:0 8px 28px rgba(0,0,0,.25);
   transform:translateY(-14px);opacity:0;animation:drop .45s .15s ease forwards;
 }
 @keyframes drop{to{transform:none;opacity:1}}
@@ -233,45 +232,45 @@ svg{display:block}
 .dim.show{opacity:1}
 .sheet{
   position:absolute;left:0;right:0;bottom:0;z-index:41;
-  background:#fff;border-radius:28px 28px 0 0;padding:10px 20px 36px;
+  background:#fff;border-radius:28px 28px 0 0;padding:10px 18px 36px;
   transform:translateY(100%);transition:transform .3s cubic-bezier(.2,.8,.2,1);
   max-height:92%;overflow-y:auto;
 }
 .sheet.show{transform:none}
-.handle{width:40px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 16px}
-.step-cap{font-size:11.5px;font-weight:600;color:var(--muted);margin-bottom:6px}
-.sheet h3{font-size:19px;font-weight:600;line-height:1.25;margin-bottom:8px}
-.sheet p{font-size:13.5px;line-height:1.5;color:#3f5361;margin-bottom:16px}
-.sheet .row-btns{margin-top:8px}
-.addr{display:flex;gap:12px;align-items:flex-start;background:var(--accent-bg);border-radius:14px;padding:14px;margin-bottom:16px}
-.addr .txt b{display:block;font-size:13.5px;font-weight:600;margin-bottom:2px}
-.addr .txt span{font-size:12.5px;color:#3f5361;line-height:1.4}
-.ta{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13.5px;line-height:1.45;resize:none;height:84px;outline:none;margin-bottom:12px}
+.handle{width:48px;height:5px;border-radius:3px;background:#D5D8DC;margin:0 auto 20px}
+.step-cap{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px}
+.sheet h3{font-size:23px;font-weight:600;line-height:1.2;margin-bottom:10px}
+.sheet p{font-size:14.5px;line-height:1.45;margin-bottom:18px}
+.sheet .btn{margin-bottom:10px}
+.addr{display:flex;gap:12px;align-items:flex-start;background:var(--field);border-radius:14px;padding:14px;margin-bottom:18px}
+.addr .txt b{display:block;font-size:14px;font-weight:600;margin-bottom:2px}
+.addr .txt span{font-size:13.5px;line-height:1.4}
+.ta{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px;line-height:1.45;resize:none;height:84px;outline:none;margin-bottom:14px}
 .ta:focus{border-color:var(--blue)}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.chips button{border:1.5px solid var(--line);background:#fff;border-radius:22px;padding:9px 13px;font-size:12.5px;font-weight:600;cursor:pointer}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chips button{border:1.5px solid var(--line);background:#fff;border-radius:22px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer}
 .chips button.on{background:var(--dark);border-color:var(--dark);color:#fff}
-.chips-cap{font-size:11.5px;font-weight:600;color:var(--muted);margin-bottom:8px}
-.done-ic{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue-light));display:flex;align-items:center;justify-content:center;margin:6px 0 16px}
-.sum{border-radius:14px;background:var(--accent-bg);padding:4px 14px;margin-bottom:18px}
-.sum div{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;padding:9px 0;border-top:1px solid #fff}
+.chips-cap{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px}
+.done-ic{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--blue-light),var(--blue));display:flex;align-items:center;justify-content:center;margin:6px 0 16px}
+.sum{border-radius:14px;background:var(--field);padding:4px 14px;margin-bottom:18px}
+.sum div{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:10px 0;border-top:1px solid #fff}
 .sum div:first-child{border-top:0}
 .sum span{color:var(--muted)}
 .sum b{font-weight:600;text-align:right}
 
 /* ================= form (stub) ================= */
-.form{position:absolute;inset:0;background:var(--bg);z-index:45;overflow-y:auto;padding:64px 16px 40px;scrollbar-width:none}
+.form{position:absolute;inset:0;background:var(--bg);z-index:45;overflow-y:auto;padding:64px 14px 40px;scrollbar-width:none}
 .form .fh{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.form .fh h2{font-size:20px;font-weight:600}
-.fld{background:#fff;border-radius:14px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.fld label{font-size:13px;font-weight:500}
-.fld input{border:0;text-align:right;font-size:13.5px;font-weight:600;width:110px;outline:none}
-.sw{width:44px;height:26px;border-radius:13px;background:var(--line);position:relative;border:0;cursor:pointer;flex:none;transition:background .2s}
-.sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s}
+.form .fh h2{font-size:22px;font-weight:600}
+.fld{background:#fff;border-radius:14px;padding:14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.fld label{font-size:14px;font-weight:500}
+.fld input{border:0;text-align:right;font-size:14px;font-weight:600;width:110px;outline:none}
+.sw{width:46px;height:28px;border-radius:14px;background:var(--line);position:relative;border:0;cursor:pointer;flex:none;transition:background .2s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .2s}
 .sw.on{background:var(--blue)}
 .sw.on::after{transform:translateX(18px)}
-.fld.col{flex-direction:column;align-items:stretch}
-.fld.col textarea{border:0;outline:none;font-size:13.5px;line-height:1.45;resize:none;height:70px;margin-top:6px}
+.fld.col2{flex-direction:column;align-items:stretch}
+.fld.col2 textarea{border:0;outline:none;font-size:14px;line-height:1.45;resize:none;height:70px;margin-top:6px}
 
 .toast{
   position:absolute;left:14px;right:14px;bottom:100px;z-index:50;
@@ -351,11 +350,12 @@ svg{display:block}
 <script>
 /* ================= data ================= */
 const TARIFFS = {
-  '6':    {name:'PRO 6 месяцев',  chip:'6 месяцев',  complexes:2, checkups:1, consults:1, cycles:2, chk:[1]},
-  '12-2': {name:'PRO 12 месяцев', chip:'12 месяцев', complexes:4, checkups:2, consults:2, cycles:4, chk:[1,3]},
-  '12-4': {name:'PRO 12 месяцев', chip:'12 месяцев', complexes:4, checkups:4, consults:4, cycles:4, chk:[1,2,3,4]},
+  '6':    {tag:'PRO · 6 МЕС',  complexes:2, checkups:1, consults:1, cycles:2, chk:[1]},
+  '12-2': {tag:'PRO · 12 МЕС', complexes:4, checkups:2, consults:2, cycles:4, chk:[1,3]},
+  '12-4': {tag:'PRO · 12 МЕС', complexes:4, checkups:4, consults:4, cycles:4, chk:[1,2,3,4]},
 };
-const ADDR0 = 'Москва, ул. Большая Дмитровка, 12, кв. 45';
+const ORDER = 'PPY100109';
+const ADDR0 = 'Москва, ул. Большая Дмитровка, д 12, кв 45';
 const DATES = ['3 октября','4 октября','6 октября'];
 const TIMES = ['8:00–10:00','10:00–12:00'];
 
@@ -364,13 +364,13 @@ const S = {
   pushed:false, launched:false, stage:-1,
   screen:'home', sheet:null, sheetMode:'full', step:0, editAddr:false,
   addr:ADDR0, anketa:'без изменений', date:null, time:null, dSel:0, tSel:0,
-  form:{meds:false, preg:false},
-  bump:false,
+  form:{meds:false, preg:false}, bump:false,
 };
 
 function tariff(){ return TARIFFS[S.tariff]; }
 function defaultCheckup(){ return tariff().chk.includes(S.cycle) ? 1 : 0; }
 function usedCheckupsBefore(){ return tariff().chk.filter(c => c < S.cycle).length; }
+function checkupsLeftBeforeLaunch(){ return tariff().checkups - usedCheckupsBefore(); }
 function counters(){
   const t = tariff();
   const done = S.launched ? 1 : 0;
@@ -381,50 +381,50 @@ function counters(){
     consults:[Math.max(0, t.consults - chkUsed), t.consults],
   };
 }
-function checkupsLeftBeforeLaunch(){ return tariff().checkups - usedCheckupsBefore(); }
 
+/* статусы по макетам приложения */
 function stages(){
   const n = S.cycle;
-  const prod = {t:'Идёт производство комплекса', d:`Собираем комплекс №${n} по вашей формуле. Обычно это занимает две-три недели, затем передадим курьеру.`};
-  const ask  = {t:'Уже получили заказ?', d:'Курьер отметил доставку. Подтвердите, что комплекс у вас, и мы начнём отсчёт нового приёма.', kind:'ask'};
-  if (!S.checkup) return [
-    prod,
-    {t:'Комплекс готов и едет к вам', d:`Курьер привезёт заказ по адресу <b>${S.addr}</b>. Ожидаем доставку 20–24 октября.`},
-    ask,
-    {t:'Приём', d:`Комплекс №${n}, по две капсулы утром во время еды. Хватит до 22 января.`, ok:true},
-  ];
-  const when = S.date ? `Медсестра приедет <b>${S.date}, ${S.time}</b>. За 12 часов до забора не ешьте, воду пить можно.`
-                      : 'Алина свяжется с вами, чтобы согласовать дату. За 12 часов до забора не ешьте, воду пить можно.';
+  const prod = {t:'Идет производство комплекса под вас', sub:`Комплекс №${n} собирают по вашей формуле, обычно это занимает две-три недели`, link:'Подробности'};
+  const ship = {t:'Ваш витаминный комплекс уже готов и спешит к вам', sub:S.addr, link:'Подробности'};
+  const ask  = {t:'Уже получили заказ?', sub:S.addr, kind:'ask'};
+  const intake = {t:'Приём', ok:true};
+  if (!S.checkup) return [prod, ship, ask, intake];
+  const when = S.date ? `${S.date}, ${S.time}, выезд медсестры на дом` : 'Алина свяжется с вами, чтобы согласовать дату и время';
   return [
-    {t:'Ожидайте забора крови', d:when},
-    {t:'Готовятся результаты', d:'Лаборатория обрабатывает пробы, обычно это занимает три-пять дней. Результаты появятся в разделе «Анализы».'},
-    {t:'Готовим формулу', d:`Врач изучает результаты и подбирает состав комплекса №${n} под ваши текущие показатели.`},
-    {t:'Консультация с врачом', d:'Мария Орлова, врач-нутрициолог. <b>14 октября в 18:00</b>, видеозвонок в приложении.'},
-    prod,
-    {t:'Комплекс готов и едет к вам', d:`Курьер привезёт заказ по адресу <b>${S.addr}</b>. Ожидаем доставку 10–14 ноября.`},
-    ask,
-    {t:'Приём', d:`Комплекс №${n}, по две капсулы утром во время еды. Хватит до 12 февраля.`, ok:true},
+    {t:'Ожидайте забора крови', sub:when, link:'Изменить или отменить', note:'Анализы сдаются натощак, это важно для корректных результатов'},
+    {t:'Готовятся результаты анализа', sub:'Лаборатория, три-пять дней'},
+    {t:'Готовим формулу витаминного комплекса', sub:'Врач изучает результаты и подбирает состав под ваши показатели'},
+    {t:'Комплекс ожидает производство', sub:'Все компоненты готовы, скоро начнется изготовление', link:'Изучить формулу',
+      second:{t:'Ожидайте консультацию с врачом', sub:'14 октября, 18:00', link:'Изменить или отменить', icon:'doc'}},
+    prod, ship, ask, intake,
   ];
 }
 
-/* ================= svg helpers ================= */
+/* ================= svg ================= */
 const I = {
-  bell:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>',
+  user:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
+  chat:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg>',
+  basket:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h16l-1.5 9h-13z"/><path d="M8 10l2-5M16 10l-2-5"/></svg>',
+  list:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="8" r="1.6"/><circle cx="6" cy="16" r="1.6"/><path d="M11 8h8M11 16h8"/></svg>',
+  doc:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>',
+  chev:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>',
+  chevD:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
+  check:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1098D4" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>',
+  checkW:'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>',
+  dot:'<svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="2.5" fill="#C9CDD2"/></svg>',
+  lockI:'<svg width="14" height="14" viewBox="0 0 24 24" fill="#C9CDD2"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="#C9CDD2" stroke-width="2"/></svg>',
   sign:'<svg width="22" height="22" viewBox="40 20 80 120" fill="#fff"><path d="M104.966 115.702C104.966 109.3 104.966 102.682 104.966 96.2795C104.966 92.8656 104.966 89.2374 104.966 85.8236C104.966 82.6205 105.18 79.4192 104.538 76.2179C102.404 63.6269 91.3075 54.6641 78.7149 54.4498H66.5499V59.7854C75.5136 59.7854 84.9049 58.5048 92.1604 64.9075C98.1353 70.243 99.4175 77.0733 99.6301 84.7565C99.6301 90.7314 99.6301 96.7072 99.6301 102.897C99.6301 109.725 99.6301 116.342 99.6301 123.172V130C101.337 130 103.258 130 104.966 130V123.172C104.966 120.823 104.966 118.262 104.966 115.702Z"/><path d="M82.7707 101.402C70.1781 101.615 61.0018 92.011 60.7884 79.6335C60.5742 70.8824 60.7884 62.3455 60.7884 53.597C60.7884 47.8338 60.7884 42.2848 60.7884 36.5233V31.1878H55.2386V36.5233C55.2386 44.6325 55.2386 52.9559 55.2386 61.0667C55.2386 74.0837 52.891 89.0249 62.9226 99.2682C68.0439 104.389 75.0868 106.951 82.1288 106.951H93.8669V101.402H82.7707Z"/></svg>',
   pin:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1098D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
-  check:'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>',
   back:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>',
-  moon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1098D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>',
-  fish:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1098D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12z"/><circle cx="15" cy="12" r="1.2"/></svg>',
-  sun:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1098D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
   torch:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l1 4H8zM8 7h8v3l-2 2v9H10v-9L8 10z"/></svg>',
   cam:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h3l2-2h6l2 2h3v12H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
 };
 const tabIcon = {
   home:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>',
-  lab:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5.5 9a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9V3"/></svg>',
-  prog:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="4" width="10" height="16" rx="3"/><path d="M9 4V2h6v2M9 10h6M9 14h6"/></svg>',
-  prof:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
+  an:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/></svg>',
+  mat:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>',
+  shop:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h16l-1.5 9h-13z"/><path d="M8 10l2-5M16 10l-2-5"/></svg>',
 };
 
 /* ================= render ================= */
@@ -457,75 +457,107 @@ function render(){
     document.getElementById('dim').classList.add('show');
     document.getElementById('sheet').classList.add('show');
   }));
-  if (S.bump){ S.bump = false; }
+  S.bump = false;
   renderPanel();
 }
 
-function renderHome(){
-  const t = tariff(), c = counters();
-  const st = S.launched ? stages() : null;
-  const cur = st ? st[S.stage] : null;
-  const isIntake = !S.launched || (cur && cur.ok);
-  const pill = isIntake ? `<span class="pill ok"><i></i>Приём</span>` : `<span class="pill"><i></i>Комплекс №${S.cycle} в работе</span>`;
+function leftBlock(inPcard){
+  const c = counters(); const b = S.bump ? ' bump' : '';
+  return `<div class="sh${inPcard ? ' left-h' : ''}">Осталось по программе</div>
+  <div class="left">
+    <div class="col${b}"><div class="num">${c.complexes[0]}<small>из ${c.complexes[1]}</small></div><div class="lab">Комплексов</div></div>
+    <div class="col${b}"><div class="num">${c.checkups[0]}<small>из ${c.checkups[1]}</small></div><div class="lab">Чекапов</div></div>
+    <div class="col${b}"><div class="num">${c.consults[0]}<small>из ${c.consults[1]}</small></div><div class="lab">Консультаций</div></div>
+  </div>`;
+}
 
-  let body = '';
+function calendar(){
+  const days = [['вс',20,'past'],['пн',21,'past'],['вт',22,'past'],['ср',23,'past'],['чт',24,'today'],['пт',25,'fut'],['сб',26,'fut']];
+  return `<div class="sh">Календарь <span class="chev">${I.chev}</span></div>
+  <div class="cal">${days.map(([d, n, k]) => `<div class="d ${k}">${d}<span>${n}</span>${k === 'past' ? I.check : k === 'today' ? I.dot : I.lockI}</div>`).join('')}</div>`;
+}
+
+function tagRow(){
+  return `<div class="tag"><div><b>${tariff().tag}</b><span>${ORDER}</span></div><div class="chev">${I.chevD}</div></div>`;
+}
+
+function statusRow(st, iconKey){
+  let h = `<div class="srow"><div class="ico">${I[iconKey || 'list']}</div><div class="body">
+    <h2>${st.t}</h2>${st.sub ? `<div class="sub">${st.sub}</div>` : ''}`;
+  if (st.kind === 'ask') h += `<div><button class="btn" data-act="gotIt">Подтвердить</button></div><div><button class="lnk" data-act="notYet">Сообщить о проблеме</button></div>`;
+  else if (st.link) h += `<div><button class="lnk">${st.link}</button></div>`;
+  if (st.note) h += `<div class="note">${st.note}</div>`;
+  return h + `</div></div>`;
+}
+
+function intakeCard(days, extra){
+  return `<div class="icard">
+    <div class="dark"><div class="dtag">${tariff().tag}</div><div class="drow"><div class="days">${days}</div><button class="btn">Принять</button></div></div>
+    ${calendar()}
+    ${leftBlock(false)}
+    ${extra || ''}
+  </div>`;
+}
+
+function programCard(){
   if (!S.launched){
-    body += `<p class="intake">Комплекс №${S.cycle - 1}, по две капсулы утром во время еды. Хватит до <b>24 октября</b>.</p>`;
-    if (S.pushed) body += `
-      <div class="order">
-        <h4>Пора заказать следующий комплекс</h4>
-        <p>Производство и доставка занимают около месяца. Закажите сейчас, чтобы продолжить приём без перерыва.</p>
-        <button class="btn white" data-act="openOrder">Заказать</button>
-      </div>`;
-  } else {
-    const n = st.length;
-    body += `<div class="prog"><div class="segs">${st.map((_, i) => `<i class="${i < S.stage ? 'on' : i === S.stage ? 'cur' : ''}"></i>`).join('')}</div>
-      <div class="stage-t">${cur.t}</div><div class="stage-d">${cur.d}</div>`;
-    if (cur.kind === 'ask') body += `<div class="row-btns"><button class="btn" data-act="gotIt">Да, получила</button><button class="btn sec" data-act="notYet">Ещё нет</button></div>`;
-    body += `</div>`;
-    if (S.launch === 'manager' && !cur.ok) body += `
-      <div class="mgr"><div class="ava">АК</div><div>
-        <h4>Ваш менеджер Алина запустила следующий цикл</h4>
-        <p>Комплекс №${S.cycle} уже в работе. Доставим по адресу: ${S.addr}.</p>
-        <div class="links"><button class="lnk" data-act="editAddr">Изменить адрес</button>${S.checkup && !S.date ? `<button class="lnk" data-act="pickDate">Выбрать дату забора крови</button>` : ''}</div>
-      </div></div>`;
+    const extra = S.pushed ? `<div class="srow"><div class="ico">${I.list}</div><div class="body">
+      <h2>Пора заказать следующий комплекс</h2>
+      <div class="sub">Витаминов хватит до 24 октября. Производство и доставка занимают около месяца, закажите сейчас, чтобы не делать перерыв</div>
+      <div><button class="btn" data-act="openOrder">Заказать</button></div></div></div>` : '';
+    return intakeCard(30, extra);
   }
+  const st = stages(), cur = st[S.stage];
+  if (cur.ok) return intakeCard(90);
+  const pct = Math.round(((S.stage + 1) / st.length) * 100);
+  let h = `<div class="pcard">${tagRow()}<div class="bar"><i style="width:${pct}%"></i></div>`;
+  h += statusRow(cur);
+  if (cur.second) h += statusRow(cur.second, cur.second.icon);
+  if (S.launch === 'manager' && S.stage < 2) h += `<div class="srow"><div class="ico ava">АК</div><div class="body">
+    <h2>Следующий цикл запустила ваш менеджер Алина</h2>
+    <div class="sub">Комплекс №${S.cycle} уже в работе. Доставим по адресу: ${S.addr}</div>
+    <div><button class="lnk sm" data-act="editAddr">Изменить адрес</button>${S.checkup && !S.date && S.stage === 0 ? `<button class="lnk sm" data-act="pickDate">Выбрать дату забора крови</button>` : ''}</div>
+  </div></div>`;
+  h += leftBlock(true) + `</div>`;
+  return h;
+}
 
-  const bump = S.bump ? ' bump' : '';
+function renderHome(){
   return `<div class="app">
     <div class="hdr"><svg class="logo" viewBox="0 0 299.6 82.4"><use href="#wm"/></svg>
-      <div class="right"><button class="icbtn">${I.bell}</button><div class="ava">АС</div></div></div>
-    <div class="greet">Добрый день, Анна</div>
+      <div class="right"><button class="icbtn">${I.user}</button><button class="icbtn">${I.chat}<span class="bd">3</span></button><button class="icbtn">${I.basket}</button></div></div>
+    <div class="stories">
+      <div class="story s1"><span>О нас</span></div>
+      <div class="story s2"><span>Гранулы</span></div>
+      <div class="story s3"><span>Реферальная программа</span></div>
+      <div class="story s4"></div>
+    </div>
+
+    ${programCard()}
 
     <div class="card">
-      <div class="card-top"><div><h2>Программа PRO</h2><div style="margin-top:6px"><span class="chip">${t.chip}${S.tariff === '12-2' ? ', 2 чекапа' : S.tariff === '12-4' ? ', 4 чекапа' : ''}</span></div></div>${pill}</div>
-      <div class="left"><div class="cap">Осталось по программе</div><div class="cols">
-        <div class="col${bump}"><div class="num">${c.complexes[0]}<small>из ${c.complexes[1]}</small></div><div class="lab">Комплексов</div></div>
-        <div class="col${bump}"><div class="num">${c.checkups[0]}<small>из ${c.checkups[1]}</small></div><div class="lab">Чекапов</div></div>
-        <div class="col${bump}"><div class="num">${c.consults[0]}<small>из ${c.consults[1]}</small></div><div class="lab">Консультаций</div></div>
-      </div></div>
-      ${body}
+      <div class="sh">Аналитика <span class="chev">${I.chev}</span></div>
+      <div class="mk"><div><b>Витамин D</b><span>46 нг/мл</span></div><span class="chip">В норме</span></div>
+      <div class="range"><i></i></div>
+      <div class="gbox"><small>Что может значить?</small><p>Витамин D участвует в усвоении кальция и работе иммунной системы. Уровень выше 30 нг/мл считается достаточным, ваш результат в целевом диапазоне.</p></div>
+      <div class="dots"><i></i><i></i><i></i><i></i></div>
     </div>
 
     <div class="card">
-      <div class="sec-head"><h3>Показатели</h3><button class="lnk">Все анализы</button></div>
-      <div class="mk"><div class="n"><b>Витамин D</b><span>Чекап от 3 июля</span></div><div class="bar"><i style="left:58%"></i></div><div class="v">46 нг/мл</div></div>
-      <div class="mk"><div class="n"><b>Ферритин</b><span>Растёт после первого цикла</span></div><div class="bar"><i class="low" style="left:22%"></i></div><div class="v">28 мкг/л</div></div>
-      <div class="mk"><div class="n"><b>Магний</b><span>В норме</span></div><div class="bar"><i style="left:64%"></i></div><div class="v">0,89 ммоль/л</div></div>
+      <div class="sh">Рекомендация <span class="chev">${I.chev}</span></div>
+      <div class="rec">Принимать формулу Bioniq PRO по 2 капсулы утром во время еды</div>
+      <div class="rdate">24 сентября 2026</div>
     </div>
 
-    <div class="sec-head" style="padding:4px 2px 0"><h3>Рекомендации</h3></div>
-    <div class="rail">
-      <div class="rc"><div class="ico">${I.moon}</div><b>Сон до 23:00</b><p>Магний из комплекса лучше усваивается при регулярном режиме сна.</p></div>
-      <div class="rc"><div class="ico">${I.fish}</div><b>Рыба дважды в неделю</b><p>Омега-3 из еды поддержит ферритин, который у вас растёт.</p></div>
-      <div class="rc"><div class="ico">${I.sun}</div><b>20 минут на солнце</b><p>Витамин D держится в норме, прогулки днём помогут его сохранить.</p></div>
-    </div>
+    <div class="card col"><div class="sh">Инструкция по приему <span class="chev">${I.chev}</span></div></div>
+
+    <div class="disc">Приложение агрегирует результаты лабораторных исследований от лицензированных партнёров и предоставляет общие рекомендации для поддержания здоровья и благополучия. Оно не осуществляет медицинскую диагностику и не предоставляет лечение. Все медицинские услуги выполняются партнёрскими лабораториями, имеющими действующие лицензии.</div>
   </div>
   <div class="tabbar">
     <button class="tab on">${tabIcon.home}Главная</button>
-    <button class="tab">${tabIcon.lab}Анализы</button>
-    <button class="tab">${tabIcon.prog}Программа</button>
-    <button class="tab">${tabIcon.prof}Профиль</button>
+    <button class="tab">${tabIcon.an}Аналитика</button>
+    <button class="tab">${tabIcon.mat}Материалы</button>
+    <button class="tab">${tabIcon.shop}Витрина</button>
   </div>`;
 }
 
@@ -564,19 +596,19 @@ function renderSheet(){
   if (step === 'anketa'){
     h += `<h3>Что-то изменилось в анкете здоровья?</h3>
       <p>Новые диагнозы, лекарства, беременность или самочувствие. Врач учтёт это, когда будет собирать формулу.</p>
-      <button class="btn" data-act="anketaNo">Нет, всё как прежде</button>
-      <div class="row-btns"><button class="btn sec" data-act="anketaYes">Да, обновить анкету</button></div>`;
+      <button class="btn full" data-act="anketaNo">Нет, всё как прежде</button>
+      <button class="btn full sec" data-act="anketaYes">Да, обновить анкету</button>`;
   } else if (step === 'address'){
     h += `<h3>Подтвердите адрес доставки</h3>`;
     if (S.editAddr){
       h += `<p>Курьер привезёт комплекс сюда.</p>
         <textarea class="ta" id="addrIn">${S.addr}</textarea>
-        <button class="btn" data-act="saveAddr">Сохранить адрес</button>`;
+        <button class="btn full" data-act="saveAddr">Сохранить адрес</button>`;
     } else {
       h += `<p>Курьер привезёт комплекс на прежний адрес.</p>
         <div class="addr">${I.pin}<div class="txt"><b>Дом</b><span>${S.addr}</span></div></div>
-        <button class="btn" data-act="confirmAddr">Подтвердить</button>
-        <div class="row-btns"><button class="btn sec" data-act="editAddrInline">Изменить</button></div>`;
+        <button class="btn full" data-act="confirmAddr">Подтвердить</button>
+        <button class="btn full sec" data-act="editAddrInline">Изменить</button>`;
     }
   } else if (step === 'blood'){
     h += `<h3>Запишитесь на забор крови</h3>
@@ -585,9 +617,9 @@ function renderSheet(){
       <div class="chips">${DATES.map((d, i) => `<button class="${i === S.dSel ? 'on' : ''}" data-act="dSel" data-i="${i}">${d}</button>`).join('')}</div>
       <div class="chips-cap">Время</div>
       <div class="chips">${TIMES.map((d, i) => `<button class="${i === S.tSel ? 'on' : ''}" data-act="tSel" data-i="${i}">${d}</button>`).join('')}</div>
-      <button class="btn" data-act="book">Записаться на ${DATES[S.dSel]}</button>`;
+      <button class="btn full" data-act="book">Записаться на ${DATES[S.dSel]}</button>`;
   } else if (step === 'done'){
-    h += `<div class="done-ic">${I.check}</div>
+    h += `<div class="done-ic">${I.checkW}</div>
       <h3>Комплекс №${S.cycle} в работе</h3>
       <p>${S.checkup ? 'Сначала обновим анализы, затем врач соберёт формулу и мы запустим производство.' : 'Запускаем производство по вашей формуле. Комплекс приедет примерно через месяц.'}</p>
       <div class="sum">
@@ -595,7 +627,7 @@ function renderSheet(){
         <div><span>Адрес</span><b>${S.addr}</b></div>
         ${S.checkup ? `<div><span>Забор крови</span><b>${S.date}, ${S.time}</b></div>` : ''}
       </div>
-      <button class="btn" data-act="finish">Вернуться на главную</button>`;
+      <button class="btn full" data-act="finish">Вернуться на главную</button>`;
   }
   return h;
 }
@@ -607,8 +639,8 @@ function renderForm(){
     <div class="fld"><label>Принимаю лекарства</label><button class="sw ${S.form.meds ? 'on' : ''}" data-act="swMeds"></button></div>
     <div class="fld"><label>Беременность или кормление</label><button class="sw ${S.form.preg ? 'on' : ''}" data-act="swPreg"></button></div>
     <div class="fld"><label>Аллергии</label><input value="Нет"></div>
-    <div class="fld col"><label>Что изменилось за последние месяцы</label><textarea placeholder="Самочувствие, сон, питание, новые диагнозы"></textarea></div>
-    <div style="margin-top:14px"><button class="btn" data-act="formSave">Сохранить</button></div>
+    <div class="fld col2"><label>Что изменилось за последние месяцы</label><textarea placeholder="Самочувствие, сон, питание, новые диагнозы"></textarea></div>
+    <div style="margin-top:14px"><button class="btn full" data-act="formSave">Сохранить</button></div>
   </div>`;
 }
 
@@ -700,8 +732,8 @@ screen.addEventListener('click', e => {
     case 'tSel': S.tSel = Number(el.dataset.i); render(); break;
     case 'book': S.date = DATES[S.dSel]; S.time = TIMES[S.tSel]; if (S.sheetMode === 'blood'){ closeSheet(); setTimeout(() => toast(`Записали на ${S.date}, ${S.time}`), 320); } else next(); break;
     case 'finish': S.launched = true; S.stage = 0; S.bump = true; closeSheet(); break;
-    case 'gotIt': S.stage = stages().length - 1; render(); break;
-    case 'notYet': toast('Хорошо, спросим позже'); break;
+    case 'gotIt': S.stage = stages().length - 1; scrollPos = 0; render(); break;
+    case 'notYet': toast('Напишите в чат, менеджер поможет'); break;
     case 'editAddr': S.sheet = true; S.sheetMode = 'addr'; S.step = 0; S.editAddr = true; render(); break;
     case 'pickDate': S.sheet = true; S.sheetMode = 'blood'; S.step = 0; render(); break;
   }
