@@ -103,15 +103,27 @@ svg{display:block}
 .hdr .right{display:flex;align-items:center;gap:8px}
 .icbtn{width:40px;height:40px;border-radius:50%;background:#fff;border:0;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
 .icbtn .bd{position:absolute;top:-4px;right:-2px;min-width:18px;height:18px;border-radius:9px;background:var(--blue);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px}
+.pts{height:40px;border-radius:20px;background:#fff;display:flex;align-items:center;gap:6px;padding:0 6px 0 12px;font-size:13.5px;font-weight:600}
+.pts i{width:24px;height:24px;border-radius:50%;background:var(--dark);color:#fff;font-size:11px;font-weight:700;font-style:normal;display:flex;align-items:center;justify-content:center}
 
-/* stories */
-.stories{display:flex;gap:8px;overflow:hidden;margin:0 -14px 14px;padding:0 14px}
-.story{flex:none;width:110px;height:82px;border-radius:14px;position:relative;overflow:hidden}
-.story span{position:absolute;left:0;right:0;bottom:0;padding:22px 8px 8px;font-size:11.5px;font-weight:600;color:#fff;text-align:right;line-height:1.2;background:linear-gradient(transparent,rgba(0,0,0,.6))}
-.story.s1{background:radial-gradient(circle at 30% 30%,#8FB9D6,#2E5C7A 70%)}
-.story.s2{background:radial-gradient(circle at 60% 40%,#F0B36B,#B5541E 75%)}
-.story.s3{background:radial-gradient(circle at 40% 30%,#E5D3C0,#8C6B55 75%)}
-.story.s4{width:16px;background:linear-gradient(180deg,var(--blue),var(--blue-light))}
+/* stories + banner */
+.stories{display:flex;gap:8px;overflow:hidden;margin:0 -14px 12px;padding:0 14px}
+.story{flex:none;width:96px;height:72px;border-radius:14px;position:relative;overflow:hidden}
+.story.act{outline:2px solid var(--blue);outline-offset:2px}
+.story span{position:absolute;left:0;right:0;bottom:0;padding:22px 8px 7px;font-size:11px;font-weight:600;color:#fff;text-align:right;line-height:1.2;background:linear-gradient(transparent,rgba(0,0,0,.65))}
+.story.s1{background:radial-gradient(circle at 35% 35%,#E7C56A,#6B4A12 75%)}
+.story.s2{background:radial-gradient(circle at 50% 30%,#D9C7BC,#4A3A36 80%)}
+.story.s3{background:radial-gradient(circle at 60% 40%,#7FB0D2,#1E3E5A 75%)}
+.story.s4{width:14px;background:linear-gradient(180deg,#2D4B6E,#0F2338)}
+.banner{border-radius:16px;background:linear-gradient(100deg,#141E35,#0B1324);color:#fff;padding:16px 16px 14px;height:118px;position:relative;overflow:hidden;margin-bottom:8px}
+.banner h4{font-size:15.5px;font-weight:600;line-height:1.25;margin-bottom:12px;max-width:200px}
+.banner .bb{display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:14px;background:rgba(255,255,255,.14);font-size:11.5px;font-weight:500}
+.banner .jars{position:absolute;right:14px;bottom:10px;display:flex;gap:6px;align-items:flex-end}
+.banner .jar{width:34px;height:58px;border-radius:7px 7px 8px 8px;background:linear-gradient(180deg,#2C3550 0 22%,#1B2238 22%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.banner .jar.b{height:70px;width:38px}
+.bdots{display:flex;justify-content:center;gap:5px;margin-bottom:12px}
+.bdots i{width:5px;height:5px;border-radius:50%;background:#C9CDD2}
+.bdots i:first-child{background:var(--dark)}
 
 /* program card */
 .pcard{background:#fff;border:1px dashed var(--dark);border-radius:var(--radius);padding:14px;margin-bottom:12px}
@@ -140,10 +152,11 @@ svg{display:block}
 .btn:active{transform:scale(.97)}
 .btn.full{width:100%}
 .btn.sec{background:var(--field);color:var(--dark)}
-.btn.white{background:#fff;color:var(--dark)}
+.btn.flat{background:var(--blue)}
+.btn:disabled{background:#DDE0E4;color:#fff;cursor:default}
 .srow .btn{margin-top:14px}
 
-/* intake (тёмная карточка, как в приложении) */
+/* intake (тёмная карточка, как в макетах) */
 .icard{background:#fff;border-radius:var(--radius);padding:0 14px 6px;margin-bottom:12px;overflow:hidden}
 .dark{
   margin:0 -14px 12px;padding:16px;height:170px;border-radius:var(--radius);
@@ -158,7 +171,6 @@ svg{display:block}
 .cal{display:flex;justify-content:space-between;margin-bottom:18px}
 .cal .d{flex:1;text-align:center;padding:6px 0 8px;border-radius:10px;font-size:12px;font-weight:600}
 .cal .d span{display:block;font-size:14.5px;margin:3px 0 8px}
-.cal .d.past{color:var(--dark)}
 .cal .d.today{background:var(--accent-bg)}
 .cal .d.fut{color:#B9BEC4}
 .cal .d svg{margin:0 auto}
@@ -177,16 +189,16 @@ svg{display:block}
 .mk{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
 .mk b{display:block;font-size:14.5px;font-weight:600}
 .mk span{font-size:13.5px}
-.chip{display:inline-flex;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-radius:12px;padding:5px 10px;background:#E8F7EE;color:#1F8F4E;margin-top:4px}
+.chip{display:inline-flex;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-radius:12px;padding:5px 10px;background:#E3F2FB;color:var(--blue);margin-top:4px;white-space:nowrap}
 .range{position:relative;height:1px;background:var(--dark);margin:16px 0 14px;width:50%}
-.range i{position:absolute;right:-6px;top:-12px;border:6px solid transparent;border-top:8px solid var(--green)}
+.range i{position:absolute;left:4px;top:-12px;border:6px solid transparent;border-top:8px solid var(--blue)}
 .gbox{background:var(--field);border-radius:14px;padding:14px}
 .gbox small{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
 .gbox p{font-size:14.5px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .dots{display:flex;justify-content:center;gap:5px;margin-top:12px}
 .dots i{width:5px;height:5px;border-radius:50%;background:#C9CDD2}
 .dots i:first-child{background:var(--dark)}
-.rec{font-size:14.5px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rec{font-size:14.5px;line-height:1.4}
 .rdate{font-size:12.5px;color:var(--muted);text-align:right;margin-top:10px}
 .card.col{padding:14px}
 .card.col .sh{margin:0}
@@ -227,6 +239,20 @@ svg{display:block}
 .lock .flash{position:absolute;bottom:88px;left:0;right:0;display:flex;justify-content:space-between;padding:0 46px}
 .lock .flash span{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center}
 
+/* in-app push banner (как в записи) */
+.pushb{
+  position:absolute;top:-110px;left:10px;right:10px;z-index:60;
+  background:rgba(38,41,46,.94);color:#fff;border-radius:18px;padding:10px 12px;
+  display:flex;gap:10px;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.3);
+  transition:top .35s cubic-bezier(.2,.8,.2,1);pointer-events:none;
+}
+.pushb.show{top:58px}
+.pushb .appic{flex:none;width:34px;height:34px;border-radius:9px;background:var(--blue);display:flex;align-items:center;justify-content:center}
+.pushb .body{flex:1;min-width:0}
+.pushb .l1{display:flex;justify-content:space-between;font-size:11px;opacity:.75}
+.pushb .t{font-size:12.5px;font-weight:600;line-height:1.3}
+.pushb .d{font-size:12px;line-height:1.3;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
 /* ================= sheet ================= */
 .dim{position:absolute;inset:0;background:rgba(5,19,26,.45);z-index:40;opacity:0;transition:opacity .25s}
 .dim.show{opacity:1}
@@ -247,30 +273,71 @@ svg{display:block}
 .addr .txt span{font-size:13.5px;line-height:1.4}
 .ta{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px;line-height:1.45;resize:none;height:84px;outline:none;margin-bottom:14px}
 .ta:focus{border-color:var(--blue)}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-.chips button{border:1.5px solid var(--line);background:#fff;border-radius:22px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer}
-.chips button.on{background:var(--dark);border-color:var(--dark);color:#fff}
-.chips-cap{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px}
 .done-ic{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--blue-light),var(--blue));display:flex;align-items:center;justify-content:center;margin:6px 0 16px}
 .sum{border-radius:14px;background:var(--field);padding:4px 14px;margin-bottom:18px}
 .sum div{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:10px 0;border-top:1px solid #fff}
 .sum div:first-child{border-top:0}
 .sum span{color:var(--muted)}
 .sum b{font-weight:600;text-align:right}
+/* success sheet (как «Запись создана!») */
+.ok-sheet{text-align:center;padding-top:6px}
+.ok-sheet .cap{font-size:14px;font-weight:600;margin-bottom:16px}
+.ok-sheet .photo{width:110px;height:110px;border-radius:50%;margin:0 auto 14px;position:relative;background:radial-gradient(circle at 50% 35%,#F1DDD0,#B48A76 70%)}
+.ok-sheet .photo.soft{background:var(--accent-bg)}
+.ok-sheet .photo i{position:absolute;right:2px;top:2px;width:26px;height:26px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center}
+.ok-sheet h3{font-size:22px;margin-bottom:2px}
+.ok-sheet .role{font-size:13px;color:var(--muted);margin-bottom:18px}
+.ok-sheet .info{text-align:left;background:var(--field);border-radius:14px;padding:4px 14px;margin-bottom:20px}
+.ok-sheet .info div{padding:10px 0;border-top:1px solid #fff;font-size:13.5px;line-height:1.4}
+.ok-sheet .info div:first-child{border-top:0}
+.ok-sheet .info small{display:block;font-size:12px;color:var(--muted);margin-bottom:2px}
+.ok-sheet .btn{padding:0 34px;height:44px;font-size:14px}
 
-/* ================= form (stub) ================= */
-.form{position:absolute;inset:0;background:var(--bg);z-index:45;overflow-y:auto;padding:64px 14px 40px;scrollbar-width:none}
-.form .fh{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.form .fh h2{font-size:22px;font-weight:600}
+/* ================= full-screen flows (как в приложении) ================= */
+.flow{position:absolute;inset:0;background:var(--bg);z-index:45;overflow-y:auto;padding:58px 14px 40px;scrollbar-width:none}
+.flow::-webkit-scrollbar{display:none}
+.fnav{display:flex;align-items:center;gap:8px;margin:2px 0 18px;min-height:40px}
+.fnav .pillb{height:40px;border-radius:20px;background:#fff;border:0;display:inline-flex;align-items:center;padding:0 16px;font-size:13px;font-weight:600;cursor:pointer}
+.fnav .cancel{margin-left:auto;color:var(--blue)}
+.flow h2{font-size:23px;font-weight:600;line-height:1.2;margin-bottom:6px}
+.flow .lead{font-size:14px;line-height:1.4;color:#3F454C;margin-bottom:18px}
+.opt{background:#fff;border-radius:16px;padding:14px 16px;margin-bottom:10px;border:1.5px solid transparent}
+.opt.on{border-color:var(--blue)}
+.opt .oh{display:flex;align-items:center;justify-content:space-between;font-size:14.5px;font-weight:600;cursor:pointer}
+.radio{width:22px;height:22px;border-radius:50%;border:2px solid #D5D8DC;flex:none}
+.opt.on .radio{border:6px solid var(--blue)}
+.opt .oinfo{margin-top:12px;background:var(--field);border-radius:12px;padding:12px 14px;font-size:12.5px;line-height:1.4}
+.opt .oinfo .lnk{font-size:12.5px;margin-top:8px}
+.fld2{background:#fff;border-radius:14px;padding:12px 16px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.fld2 small{display:block;font-size:12px;color:var(--muted);margin-bottom:2px}
+.fld2 b{font-weight:500;font-size:14.5px;line-height:1.35}
+.fgroup{background:#fff;border-radius:16px;padding:14px 14px 10px;margin-bottom:10px}
+.fgroup h5{font-size:14.5px;font-weight:600;margin-bottom:10px}
+.fgroup .fld2{background:var(--field)}
+.week{display:flex;gap:6px;margin-bottom:6px}
+.week button{flex:1;border:0;border-radius:12px;background:var(--field);padding:9px 0;font-size:11.5px;font-weight:600;color:#B9BEC4;cursor:pointer;line-height:1.2}
+.week button span{display:block;font-size:14px;margin-top:2px}
+.week button.av{color:var(--dark)}
+.week button.on{background:var(--blue);color:#fff}
+.week-cap{font-size:11px;color:var(--muted);margin-bottom:12px}
+.tim{display:flex;gap:8px;margin-bottom:4px}
+.tim button{flex:1;border:0;border-radius:12px;background:var(--field);padding:12px 0;font-size:13px;font-weight:600;cursor:pointer}
+.tim button.on{background:var(--blue);color:#fff}
+.comment{background:var(--field);border-radius:12px;padding:12px 14px;font-size:13.5px;color:var(--muted);margin-bottom:4px}
+.fbtn{margin-top:22px;text-align:center}
+.fbtn .btn{width:100%;height:46px;font-size:14.5px}
+.fbtn small{display:block;font-size:12px;color:var(--muted);line-height:1.4;margin-top:10px;padding:0 20px}
+
+/* form stub (анкета) */
 .fld{background:#fff;border-radius:14px;padding:14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .fld label{font-size:14px;font-weight:500}
-.fld input{border:0;text-align:right;font-size:14px;font-weight:600;width:110px;outline:none}
+.fld input{border:0;text-align:right;font-size:14px;font-weight:600;width:110px;outline:none;background:none}
 .sw{width:46px;height:28px;border-radius:14px;background:var(--line);position:relative;border:0;cursor:pointer;flex:none;transition:background .2s}
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .2s}
 .sw.on{background:var(--blue)}
 .sw.on::after{transform:translateX(18px)}
 .fld.col2{flex-direction:column;align-items:stretch}
-.fld.col2 textarea{border:0;outline:none;font-size:14px;line-height:1.45;resize:none;height:70px;margin-top:6px}
+.fld.col2 textarea{border:0;outline:none;font-size:14px;line-height:1.45;resize:none;height:70px;margin-top:6px;background:none}
 
 .toast{
   position:absolute;left:14px;right:14px;bottom:100px;z-index:50;
@@ -354,16 +421,22 @@ const TARIFFS = {
   '12-2': {tag:'PRO · 12 МЕС', complexes:4, checkups:2, consults:2, cycles:4, chk:[1,3]},
   '12-4': {tag:'PRO · 12 МЕС', complexes:4, checkups:4, consults:4, cycles:4, chk:[1,2,3,4]},
 };
-const ORDER = 'PPY100109';
+const ORDER = 'PPY100151';
 const ADDR0 = 'Москва, ул. Большая Дмитровка, д 12, кв 45';
-const DATES = ['3 октября','4 октября','6 октября'];
-const TIMES = ['8:00–10:00','10:00–12:00'];
+const LAB = 'Медси, м. Павелецкая, ул. Дубининская, д. 57 стр. 8';
+const WEEK = [['Чт',24,0],['Пт',25,0],['Сб',26,1],['Вс',27,1],['Пн',28,1],['Вт',29,1],['Ср',30,1]];
+const CTIMES = ['19:20 - 20:00','20:00 - 20:40'];
+const DOCTOR = {name:'Вероника Ковалева', role:'Врач эндокринолог-диетолог'};
 
 const S = {
   tariff:'12-2', cycle:2, checkup:0, launch:'client',
   pushed:false, launched:false, stage:-1,
   screen:'home', sheet:null, sheetMode:'full', step:0, editAddr:false,
-  addr:ADDR0, anketa:'без изменений', date:null, time:null, dSel:0, tSel:0,
+  addr:ADDR0, anketa:'без изменений',
+  /* заявка на забор крови */
+  bstep:1, bway:null, bday:2, booked:false, fromSheet:false,
+  /* консультация */
+  cday:0, ctime:0, cfmt:'phone', consult:null,
   form:{meds:false, preg:false}, bump:false,
 };
 
@@ -381,23 +454,28 @@ function counters(){
     consults:[Math.max(0, t.consults - chkUsed), t.consults],
   };
 }
+function bloodWhen(){
+  const d = WEEK[S.bday];
+  return `${d[1]} сентября, ${S.bway === 'home' ? 'выезд медсестры на дом' : LAB}`;
+}
 
-/* статусы по макетам приложения */
+/* статусы карточки: названия и тексты из записи экрана и макетов */
 function stages(){
   const n = S.cycle;
-  const prod = {t:'Идет производство комплекса под вас', sub:`Комплекс №${n} собирают по вашей формуле, обычно это занимает две-три недели`, link:'Подробности'};
-  const ship = {t:'Ваш витаминный комплекс уже готов и спешит к вам', sub:S.addr, link:'Подробности'};
-  const ask  = {t:'Уже получили заказ?', sub:S.addr, kind:'ask'};
+  const consultRow = S.consult ? {t:'Ожидайте консультацию с врачом', sub:`${S.consult.date}, ${S.consult.time}`, link:'Изменить или отменить', icon:'doc'} : null;
+  const wait = {t:'Комплекс ожидает производство', sub:'Все компоненты готовы, скоро начнётся изготовление', link:'Изучить формулу', second:consultRow, push:['Консультация с врачом', 'В назначенное время специалист свяжется с вами']};
+  const prod = {t:'Идет производство комплекса под вас', sub:`Комплекс №${n} собирают по вашей формуле, обычно это занимает две-три недели`, link:'Подробности', push:['Ваша формула отправлена в производство', 'Соберём комплекс и пришлём трек-код']};
+  const ship = {t:'Ваш витаминный комплекс уже готов и спешит к вам', sub:S.addr, link:'Подробности', push:['Ваш комплекс в пути', 'А пока ознакомьтесь с рекомендациями по приему']};
+  const ask  = {t:'Уже получили заказ?', sub:S.addr, kind:'ask', push:['Посылка доставлена', 'Подтвердите получение комплекса в приложении']};
   const intake = {t:'Приём', ok:true};
-  if (!S.checkup) return [prod, ship, ask, intake];
-  const when = S.date ? `${S.date}, ${S.time}, выезд медсестры на дом` : 'Алина свяжется с вами, чтобы согласовать дату и время';
+  if (!S.checkup) return [{...wait, second:null, push:null}, prod, ship, ask, intake];
   return [
-    {t:'Ожидайте забора крови', sub:when, link:'Изменить или отменить', note:'Анализы сдаются натощак, это важно для корректных результатов'},
-    {t:'Готовятся результаты анализа', sub:'Лаборатория, три-пять дней'},
-    {t:'Готовим формулу витаминного комплекса', sub:'Врач изучает результаты и подбирает состав под ваши показатели'},
-    {t:'Комплекс ожидает производство', sub:'Все компоненты готовы, скоро начнется изготовление', link:'Изучить формулу',
-      second:{t:'Ожидайте консультацию с врачом', sub:'14 октября, 18:00', link:'Изменить или отменить', icon:'doc'}},
-    prod, ship, ask, intake,
+    {t:'Оставить заявку на забор крови', sub:'Согласовать дату и время взятия анализа', btn:{label:'Оставить заявку', act:'bloodStart'}},
+    {t:'Ожидайте назначения забора крови', sub:bloodWhen(), link:'Отменить запись', push:['Заявка на забор крови принята', 'Лаборатория подтвердит время в течение дня']},
+    {t:'Ожидайте забора крови', sub:bloodWhen(), link:'Отменить запись', note:'Анализы сдаются натощак — это важно для корректных результатов', push:['Забор крови подтверждён', `Вас будут ожидать в лаборатории ${LAB}`]},
+    {t:'Результаты анализов готовятся', sub:'Медси', push:['Как прошел забор крови?', 'Ваша оценка поможет нам стать лучше']},
+    {t:'Готовим формулу витаминного комплекса', sub:'Проконсультироваться с врачом', link:S.consult ? null : 'Назначить дату и время', linkAct:'consultStart', second:consultRow, push:['Результаты анализов Bioniq', 'Сообщение от автоматической системы доставки результатов']},
+    wait, prod, ship, ask, intake,
   ];
 }
 
@@ -409,14 +487,17 @@ const I = {
   list:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="8" r="1.6"/><circle cx="6" cy="16" r="1.6"/><path d="M11 8h8M11 16h8"/></svg>',
   doc:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>',
   chev:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>',
+  chevR:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>',
   chevD:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
   check:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1098D4" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>',
   checkW:'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>',
+  checkS:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>',
   dot:'<svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="2.5" fill="#C9CDD2"/></svg>',
   lockI:'<svg width="14" height="14" viewBox="0 0 24 24" fill="#C9CDD2"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="#C9CDD2" stroke-width="2"/></svg>',
   sign:'<svg width="22" height="22" viewBox="40 20 80 120" fill="#fff"><path d="M104.966 115.702C104.966 109.3 104.966 102.682 104.966 96.2795C104.966 92.8656 104.966 89.2374 104.966 85.8236C104.966 82.6205 105.18 79.4192 104.538 76.2179C102.404 63.6269 91.3075 54.6641 78.7149 54.4498H66.5499V59.7854C75.5136 59.7854 84.9049 58.5048 92.1604 64.9075C98.1353 70.243 99.4175 77.0733 99.6301 84.7565C99.6301 90.7314 99.6301 96.7072 99.6301 102.897C99.6301 109.725 99.6301 116.342 99.6301 123.172V130C101.337 130 103.258 130 104.966 130V123.172C104.966 120.823 104.966 118.262 104.966 115.702Z"/><path d="M82.7707 101.402C70.1781 101.615 61.0018 92.011 60.7884 79.6335C60.5742 70.8824 60.7884 62.3455 60.7884 53.597C60.7884 47.8338 60.7884 42.2848 60.7884 36.5233V31.1878H55.2386V36.5233C55.2386 44.6325 55.2386 52.9559 55.2386 61.0667C55.2386 74.0837 52.891 89.0249 62.9226 99.2682C68.0439 104.389 75.0868 106.951 82.1288 106.951H93.8669V101.402H82.7707Z"/></svg>',
   pin:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1098D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
-  back:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>',
+  pinS:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1098D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+  back:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>',
   torch:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l1 4H8zM8 7h8v3l-2 2v9H10v-9L8 10z"/></svg>',
   cam:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h3l2-2h6l2 2h3v12H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
 };
@@ -447,8 +528,11 @@ function render(){
   else {
     html += renderHome();
     if (S.screen === 'form') html += renderForm();
+    if (S.screen === 'blood') html += renderBlood();
+    if (S.screen === 'consult') html += renderConsult();
     if (S.sheet) html += `<div class="dim" id="dim"></div><div class="sheet" id="sheet">${renderSheet()}</div>`;
   }
+  html += `<div class="pushb" id="pushb"><div class="appic">${I.sign}</div><div class="body"><div class="l1"><span>bioniq</span><span>сейчас</span></div><div class="t"></div><div class="d"></div></div></div>`;
   html += `<div class="toast" id="toast"></div><div class="homebar"></div>`;
   screen.innerHTML = html;
   const app = screen.querySelector('.app');
@@ -485,7 +569,8 @@ function statusRow(st, iconKey){
   let h = `<div class="srow"><div class="ico">${I[iconKey || 'list']}</div><div class="body">
     <h2>${st.t}</h2>${st.sub ? `<div class="sub">${st.sub}</div>` : ''}`;
   if (st.kind === 'ask') h += `<div><button class="btn" data-act="gotIt">Подтвердить</button></div><div><button class="lnk" data-act="notYet">Сообщить о проблеме</button></div>`;
-  else if (st.link) h += `<div><button class="lnk">${st.link}</button></div>`;
+  else if (st.btn) h += `<div><button class="btn" data-act="${st.btn.act}">${st.btn.label}</button></div>`;
+  else if (st.link) h += `<div><button class="lnk" ${st.linkAct ? `data-act="${st.linkAct}"` : ''}>${st.link}</button></div>`;
   if (st.note) h += `<div class="note">${st.note}</div>`;
   return h + `</div></div>`;
 }
@@ -516,7 +601,7 @@ function programCard(){
   if (S.launch === 'manager' && S.stage < 2) h += `<div class="srow"><div class="ico ava">АК</div><div class="body">
     <h2>Следующий цикл запустила ваш менеджер Алина</h2>
     <div class="sub">Комплекс №${S.cycle} уже в работе. Доставим по адресу: ${S.addr}</div>
-    <div><button class="lnk sm" data-act="editAddr">Изменить адрес</button>${S.checkup && !S.date && S.stage === 0 ? `<button class="lnk sm" data-act="pickDate">Выбрать дату забора крови</button>` : ''}</div>
+    <div><button class="lnk sm" data-act="editAddr">Изменить адрес</button></div>
   </div></div>`;
   h += leftBlock(true) + `</div>`;
   return h;
@@ -525,28 +610,30 @@ function programCard(){
 function renderHome(){
   return `<div class="app">
     <div class="hdr"><svg class="logo" viewBox="0 0 299.6 82.4"><use href="#wm"/></svg>
-      <div class="right"><button class="icbtn">${I.user}</button><button class="icbtn">${I.chat}<span class="bd">3</span></button><button class="icbtn">${I.basket}</button></div></div>
+      <div class="right"><div class="pts">100 <i>Б</i></div><button class="icbtn">${I.user}</button><button class="icbtn">${I.chat}</button><button class="icbtn">${I.basket}</button></div></div>
     <div class="stories">
-      <div class="story s1"><span>О нас</span></div>
-      <div class="story s2"><span>Гранулы</span></div>
-      <div class="story s3"><span>Реферальная программа</span></div>
+      <div class="story s1 act"><span>Essential</span></div>
+      <div class="story s2"><span>Консультация врача</span></div>
+      <div class="story s3"><span>О нас</span></div>
       <div class="story s4"></div>
     </div>
+    <div class="banner"><h4>Новые витамины Essential</h4><span class="bb">Смотреть новинки</span><div class="jars"><div class="jar"></div><div class="jar b"></div><div class="jar"></div></div></div>
+    <div class="bdots"><i></i><i></i><i></i></div>
 
     ${programCard()}
 
     <div class="card">
       <div class="sh">Аналитика <span class="chev">${I.chev}</span></div>
-      <div class="mk"><div><b>Витамин D</b><span>46 нг/мл</span></div><span class="chip">В норме</span></div>
+      <div class="mk"><div><b>Витамин D в крови</b><span>5 нг/мл</span></div><span class="chip">Критично низкий</span></div>
       <div class="range"><i></i></div>
-      <div class="gbox"><small>Что может значить?</small><p>Витамин D участвует в усвоении кальция и работе иммунной системы. Уровень выше 30 нг/мл считается достаточным, ваш результат в целевом диапазоне.</p></div>
+      <div class="gbox"><small>Что может значить?</small><p>D2 и D3 — самые распространённые формы витамина D. Низкий уровень сказывается на иммунитете, костях и настроении, формула комплекса это учитывает.</p></div>
       <div class="dots"><i></i><i></i><i></i><i></i></div>
     </div>
 
     <div class="card">
       <div class="sh">Рекомендация <span class="chev">${I.chev}</span></div>
-      <div class="rec">Принимать формулу Bioniq PRO по 2 капсулы утром во время еды</div>
-      <div class="rdate">24 сентября 2026</div>
+      <div class="rec">Принимать формулу Bioniq PRO по 2 капсулы в день во время или после еды.</div>
+      <div class="rdate">21 сентября 2026</div>
     </div>
 
     <div class="card col"><div class="sh">Инструкция по приему <span class="chev">${I.chev}</span></div></div>
@@ -578,9 +665,11 @@ function renderLock(){
   </div>`;
 }
 
+/* ---------- sheet ---------- */
 function sheetSteps(){
   if (S.sheetMode === 'addr') return ['address'];
-  if (S.sheetMode === 'blood') return ['blood'];
+  if (S.sheetMode === 'bloodDone') return ['bloodDone'];
+  if (S.sheetMode === 'consultDone') return ['consultDone'];
   const s = ['anketa','address'];
   if (S.checkup) s.push('blood');
   s.push('done');
@@ -612,12 +701,9 @@ function renderSheet(){
     }
   } else if (step === 'blood'){
     h += `<h3>Запишитесь на забор крови</h3>
-      <p>Медсестра приедет домой или в офис, процедура занимает около десяти минут.</p>
-      <div class="chips-cap">Дата</div>
-      <div class="chips">${DATES.map((d, i) => `<button class="${i === S.dSel ? 'on' : ''}" data-act="dSel" data-i="${i}">${d}</button>`).join('')}</div>
-      <div class="chips-cap">Время</div>
-      <div class="chips">${TIMES.map((d, i) => `<button class="${i === S.tSel ? 'on' : ''}" data-act="tSel" data-i="${i}">${d}</button>`).join('')}</div>
-      <button class="btn full" data-act="book">Записаться на ${DATES[S.dSel]}</button>`;
+      <p>В этом цикле чекап. Заявка занимает минуту: способ сдачи, лаборатория и удобная дата, точное время подтвердим после обработки.</p>
+      <button class="btn full" data-act="bloodStart">Оставить заявку</button>
+      <button class="btn full sec" data-act="bloodLater">Позже, из карточки программы</button>`;
   } else if (step === 'done'){
     h += `<div class="done-ic">${I.checkW}</div>
       <h3>Комплекс №${S.cycle} в работе</h3>
@@ -625,22 +711,85 @@ function renderSheet(){
       <div class="sum">
         <div><span>Анкета</span><b>${S.anketa}</b></div>
         <div><span>Адрес</span><b>${S.addr}</b></div>
-        ${S.checkup ? `<div><span>Забор крови</span><b>${S.date}, ${S.time}</b></div>` : ''}
+        ${S.checkup ? `<div><span>Забор крови</span><b>${S.booked ? bloodWhen() : 'заявку оставите позже'}</b></div>` : ''}
       </div>
       <button class="btn full" data-act="finish">Вернуться на главную</button>`;
+  } else if (step === 'bloodDone'){
+    h += `<div class="ok-sheet"><div class="cap">Ваша заявка создана!</div>
+      <div class="photo soft"><i>${I.checkS}</i></div>
+      <h3>${bloodWhen()}</h3><div class="role">желаемая дата</div>
+      <div class="info"><div><small>Что дальше</small>Для подтверждения точного времени с вами свяжется менеджер</div></div>
+      <button class="btn flat" data-act="bloodOk">Хорошо</button></div>`;
+  } else if (step === 'consultDone'){
+    h += `<div class="ok-sheet"><div class="cap">Запись создана!</div>
+      <div class="photo"><i>${I.checkS}</i></div>
+      <h3>${DOCTOR.name}</h3><div class="role">${DOCTOR.role}</div>
+      <div class="info">
+        <div><small>Дата консультации</small>${S.consult.date} 2026 г., ${S.consult.time} МСК</div>
+        <div><small>Что дальше</small>Врач свяжется с вами в назначенное время, ожидайте ${S.consult.fmt === 'phone' ? 'телефонный звонок' : 'видеозвонок'}</div>
+      </div>
+      <button class="btn flat" data-act="consultOk">Хорошо</button></div>`;
   }
   return h;
 }
 
+/* ---------- заявка на забор крови (3 шага, как в приложении) ---------- */
+function renderBlood(){
+  const nav = (step) => `<div class="fnav">${step > 1 ? `<button class="pillb" data-act="bloodBack" style="padding:0 12px">${I.back}</button>` : ''}<span class="pillb">Шаг ${step} из 3</span><button class="pillb cancel" data-act="bloodCancel">Отменить</button></div>`;
+  let h = `<div class="flow">`;
+  if (S.bstep === 1){
+    h += nav(1) + `<h2>Способ сдачи анализов</h2><div style="height:12px"></div>
+      <div class="opt ${S.bway === 'home' ? 'on' : ''}" data-act="bway" data-v="home"><div class="oh">Вызвать медсестру на дом<span class="radio"></span></div>
+        <div class="oinfo">Бесплатно при заказе от 10 000 ₽, условия зависят от расстояния<br><button class="lnk">Условия выезда</button></div></div>
+      <div class="opt ${S.bway === 'lab' ? 'on' : ''}" data-act="bway" data-v="lab"><div class="oh">Посетить лабораторию<span class="radio"></span></div></div>
+      <div class="fbtn"><button class="btn flat" data-act="bloodNext" ${S.bway ? '' : 'disabled'}>Продолжить</button><small>Вы оставляете заявку — точное время подтвердим позже</small></div>`;
+  } else if (S.bstep === 2){
+    h += nav(2) + `<h2>Ваши данные</h2><div class="lead">Нужно для оформления заявки</div>
+      <div class="fld2"><div><small>Пол</small><b>Женский</b></div>${I.chevR}</div>
+      <div class="fld2"><div><small>Дата рождения</small><b>03.11.2000</b></div></div>
+      <div class="fbtn"><button class="btn flat" data-act="bloodNext">Продолжить</button><small>Вы оставляете заявку — точное время подтвердим позже</small></div>`;
+  } else {
+    h += nav(3) + `<h2>Лаборатория и дата</h2><div class="lead">Вы оставляете заявку — мы подтвердим точное время после обработки</div>
+      <div class="fgroup"><h5>${S.bway === 'home' ? 'Адрес выезда' : 'Выбрать лабораторию'}</h5>
+        <div class="fld2"><div><small>Ваш регион</small><b>г. Москва</b></div>${I.chevR}</div>
+        ${S.bway === 'home' ? `<div class="fld2"><div><small>Адрес</small><b>${S.addr}</b></div>${I.chevR}</div>` : `<div class="fld2"><div><small>Лаборатория</small><b>м. Павелецкая, ул. Дубининская, д. 57 стр. 8</b></div>${I.chevR}</div><button class="lnk sm" style="margin:6px 0 4px">${I.pinS.replace('<svg','<svg style="display:inline;vertical-align:-3px;margin-right:6px"')}Выбрать на карте</button>`}
+      </div>
+      <div class="fgroup"><h5>Дата (желаемая)</h5>
+        <div class="week">${WEEK.map((d, i) => `<button ${d[2] ? `class="av ${i === S.bday ? 'on' : ''}" data-act="bday" data-i="${i}"` : 'disabled'}>${d[0]}<span>${d[1]}</span></button>`).join('')}</div>
+        <div class="week-cap">Сентябрь</div>
+        <div class="comment">Комментарий (необязательно)</div>
+      </div>
+      <div class="fbtn"><button class="btn flat" data-act="bloodSubmit">Оставить заявку</button><small>Вы оставляете заявку — точное время подтвердим позже</small></div>`;
+  }
+  return h + `</div>`;
+}
+
+/* ---------- запись на консультацию (как в приложении) ---------- */
+function renderConsult(){
+  return `<div class="flow">
+    <div class="fnav"><button class="pillb" data-act="consultCancel" style="padding:0 12px">${I.back}</button><button class="pillb cancel" data-act="consultCancel">Отменить</button></div>
+    <h2>Запись на консультацию</h2><div class="lead">Время указано по Москве</div>
+    <div class="fgroup"><h5>Дата</h5>
+      <div class="week">${WEEK.map((d, i) => `<button ${d[2] || i === 0 ? `class="av ${i === S.cday ? 'on' : ''}" data-act="cday" data-i="${i}"` : 'disabled'}>${d[0]}<span>${d[1]}</span></button>`).join('')}</div>
+      <div class="week-cap">Сентябрь</div></div>
+    <div class="fgroup"><h5>Время (Мск)</h5><div class="tim">${CTIMES.map((t, i) => `<button class="${i === S.ctime ? 'on' : ''}" data-act="ctime" data-i="${i}">${t}</button>`).join('')}</div></div>
+    <div class="fgroup"><h5>Формат консультации</h5>
+      <div class="opt ${S.cfmt === 'phone' ? 'on' : ''}" data-act="cfmt" data-v="phone" style="background:var(--field)"><div class="oh">Телефонный звонок<span class="radio"></span></div></div>
+      <div class="opt ${S.cfmt === 'video' ? 'on' : ''}" data-act="cfmt" data-v="video" style="background:var(--field)"><div class="oh">Видеозвонок<span class="radio"></span></div></div>
+      <div class="comment">Добавить комментарий</div></div>
+    <div class="fbtn"><button class="btn flat" data-act="consultSubmit">Записаться</button><small>Консультация продлится 40 минут</small></div>
+  </div>`;
+}
+
 function renderForm(){
-  return `<div class="form">
-    <div class="fh"><button class="icbtn" data-act="formBack">${I.back}</button><h2>Анкета здоровья</h2></div>
+  return `<div class="flow">
+    <div class="fnav"><button class="pillb" data-act="formBack" style="padding:0 12px">${I.back}</button><h2 style="margin:0">Анкета здоровья</h2></div>
     <div class="fld"><label>Вес</label><input value="58 кг"></div>
     <div class="fld"><label>Принимаю лекарства</label><button class="sw ${S.form.meds ? 'on' : ''}" data-act="swMeds"></button></div>
     <div class="fld"><label>Беременность или кормление</label><button class="sw ${S.form.preg ? 'on' : ''}" data-act="swPreg"></button></div>
     <div class="fld"><label>Аллергии</label><input value="Нет"></div>
     <div class="fld col2"><label>Что изменилось за последние месяцы</label><textarea placeholder="Самочувствие, сон, питание, новые диагнозы"></textarea></div>
-    <div style="margin-top:14px"><button class="btn full" data-act="formSave">Сохранить</button></div>
+    <div class="fbtn"><button class="btn flat" data-act="formSave">Сохранить</button></div>
   </div>`;
 }
 
@@ -671,9 +820,20 @@ function renderPanel(){
 }
 
 function resetFlow(){
-  Object.assign(S, {pushed:false, launched:false, stage:-1, screen:'home', sheet:null, sheetMode:'full', step:0, editAddr:false, addr:ADDR0, anketa:'без изменений', date:null, time:null, dSel:0, tSel:0, form:{meds:false, preg:false}});
+  Object.assign(S, {pushed:false, launched:false, stage:-1, screen:'home', sheet:null, sheetMode:'full', step:0, editAddr:false, addr:ADDR0, anketa:'без изменений', bstep:1, bway:null, bday:2, booked:false, fromSheet:false, cday:0, ctime:0, cfmt:'phone', consult:null, form:{meds:false, preg:false}});
   if (S.launch === 'manager'){ S.launched = true; S.stage = 0; }
   scrollPos = 0;
+}
+
+function advance(dir){
+  const st = stages();
+  let next = S.stage + dir;
+  /* этап «Оставить заявку» пропускаем, если заявка уже оставлена */
+  if (S.checkup && next === 0 && S.booked) next = dir > 0 ? 1 : 0;
+  next = Math.max(0, Math.min(st.length - 1, next));
+  if (S.checkup && !S.booked && next >= 1 && dir > 0){ S.booked = true; S.bway = S.bway || 'lab'; }
+  S.stage = next; scrollPos = 0; render();
+  if (dir > 0 && st[next].push) showPush(st[next].push);
 }
 
 document.getElementById('panel').addEventListener('click', e => {
@@ -690,25 +850,38 @@ document.getElementById('panel').addEventListener('click', e => {
   }
   if (b.id === 'btnPush'){ S.pushed = true; S.screen = 'lock'; render(); }
   if (b.id === 'btnReset'){ resetFlow(); render(); }
-  if (b.id === 'stPrev'){ S.stage = Math.max(0, S.stage - 1); render(); }
-  if (b.id === 'stNext'){ S.stage = Math.min(stages().length - 1, S.stage + 1); render(); }
+  if (b.id === 'stPrev'){ advance(-1); }
+  if (b.id === 'stNext'){ advance(1); }
 });
 
 /* ================= phone actions ================= */
+let pushTimer = null;
+function showPush([t, d]){
+  const p = document.getElementById('pushb'); if (!p) return;
+  p.querySelector('.t').textContent = t; p.querySelector('.d').textContent = d;
+  clearTimeout(pushTimer);
+  requestAnimationFrame(() => p.classList.add('show'));
+  pushTimer = setTimeout(() => p.classList.remove('show'), 3200);
+}
 function toast(msg){
   const t = document.getElementById('toast'); if (!t) return;
   t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2200);
 }
-function closeSheet(){
+function openSheet(mode, step){ S.sheet = true; S.sheetMode = mode; S.step = step || 0; render(); }
+function closeSheet(after){
   const d = document.getElementById('dim'), s = document.getElementById('sheet');
   if (d) d.classList.remove('show'); if (s) s.classList.remove('show');
-  setTimeout(() => { S.sheet = null; S.step = 0; S.editAddr = false; render(); }, 260);
+  setTimeout(() => { S.sheet = null; S.step = 0; S.editAddr = false; if (after) after(); render(); }, 260);
 }
 function next(){
   const steps = sheetSteps();
   if (S.step < steps.length - 1){ S.step++; S.editAddr = false; render(); }
   else closeSheet();
+}
+function finishLaunch(){
+  S.launched = true; S.bump = true;
+  S.stage = (S.checkup && !S.booked) ? 0 : (S.checkup ? 1 : 0);
 }
 
 screen.addEventListener('click', e => {
@@ -716,9 +889,9 @@ screen.addEventListener('click', e => {
   const app = screen.querySelector('.app'); if (app) scrollPos = app.scrollTop;
   const a = el.dataset.act;
   switch (a){
-    case 'openPush': S.screen = 'home'; scrollPos = 0; render(); setTimeout(() => { S.sheet = true; S.sheetMode = 'full'; S.step = 0; render(); }, 350); break;
+    case 'openPush': S.screen = 'home'; scrollPos = 0; render(); setTimeout(() => openSheet('full', 0), 350); break;
     case 'unlock': S.screen = 'home'; scrollPos = 0; render(); break;
-    case 'openOrder': S.sheet = true; S.sheetMode = 'full'; S.step = 0; render(); break;
+    case 'openOrder': openSheet('full', 0); break;
     case 'anketaNo': S.anketa = 'без изменений'; next(); break;
     case 'anketaYes': S.screen = 'form'; render(); break;
     case 'formBack': S.screen = 'home'; render(); break;
@@ -728,14 +901,28 @@ screen.addEventListener('click', e => {
     case 'editAddrInline': S.editAddr = true; render(); break;
     case 'saveAddr': { const v = document.getElementById('addrIn').value.trim(); if (v) S.addr = v; S.editAddr = false; if (S.sheetMode === 'addr'){ closeSheet(); setTimeout(() => toast('Адрес обновили, менеджер увидит его в заказе'), 320); } else next(); break; }
     case 'confirmAddr': next(); break;
-    case 'dSel': S.dSel = Number(el.dataset.i); render(); break;
-    case 'tSel': S.tSel = Number(el.dataset.i); render(); break;
-    case 'book': S.date = DATES[S.dSel]; S.time = TIMES[S.tSel]; if (S.sheetMode === 'blood'){ closeSheet(); setTimeout(() => toast(`Записали на ${S.date}, ${S.time}`), 320); } else next(); break;
-    case 'finish': S.launched = true; S.stage = 0; S.bump = true; closeSheet(); break;
+    case 'bloodLater': S.booked = false; next(); break;
+    /* заявка на забор крови */
+    case 'bloodStart': S.fromSheet = !!S.sheet; S.bstep = 1; S.bway = null; S.sheet = null; S.screen = 'blood'; render(); break;
+    case 'bway': S.bway = el.dataset.v; render(); break;
+    case 'bday': S.bday = Number(el.dataset.i); render(); break;
+    case 'bloodNext': S.bstep++; render(); break;
+    case 'bloodBack': S.bstep--; render(); break;
+    case 'bloodCancel': S.screen = 'home'; if (S.fromSheet){ S.fromSheet = false; openSheet('full', sheetSteps().indexOf('blood')); } else render(); break;
+    case 'bloodSubmit': S.booked = true; S.screen = 'home'; render(); openSheet('bloodDone', 0); break;
+    case 'bloodOk': closeSheet(() => { if (S.fromSheet){ S.fromSheet = false; S.sheet = true; S.sheetMode = 'full'; S.step = sheetSteps().indexOf('done'); } else if (S.launched && S.stage === 0){ S.stage = 1; } }); break;
+    /* консультация */
+    case 'consultStart': S.screen = 'consult'; render(); break;
+    case 'cday': S.cday = Number(el.dataset.i); render(); break;
+    case 'ctime': S.ctime = Number(el.dataset.i); render(); break;
+    case 'cfmt': S.cfmt = el.dataset.v; render(); break;
+    case 'consultCancel': S.screen = 'home'; render(); break;
+    case 'consultSubmit': S.consult = {date:`${WEEK[S.cday][1]} сентября`, time:CTIMES[S.ctime], fmt:S.cfmt}; S.screen = 'home'; render(); openSheet('consultDone', 0); break;
+    case 'consultOk': closeSheet(); break;
+    case 'finish': finishLaunch(); closeSheet(); break;
     case 'gotIt': S.stage = stages().length - 1; scrollPos = 0; render(); break;
     case 'notYet': toast('Напишите в чат, менеджер поможет'); break;
-    case 'editAddr': S.sheet = true; S.sheetMode = 'addr'; S.step = 0; S.editAddr = true; render(); break;
-    case 'pickDate': S.sheet = true; S.sheetMode = 'blood'; S.step = 0; render(); break;
+    case 'editAddr': S.editAddr = true; openSheet('addr', 0); break;
   }
 });
 
