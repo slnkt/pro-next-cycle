@@ -64,14 +64,15 @@ svg{display:block}
 .pbtn:active{transform:scale(.97)}
 .pbtn:disabled{background:var(--field);color:var(--muted);cursor:default}
 .pbtn.ghost{background:#fff;border:1.5px solid var(--line);color:var(--dark)}
-.stage-nav{display:flex;align-items:center;gap:6px;margin-left:auto}
-.stage-nav span{font-size:12.5px;font-weight:600;min-width:120px;text-align:center}
+.stage-nav{display:flex;align-items:center;gap:6px}
+.stage-nav span{font-size:12.5px;font-weight:600;min-width:64px;text-align:center}
+.stage-nav .nl{min-width:0;color:var(--muted);font-weight:600;margin-right:2px}
 .stage-nav button{
   width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:#fff;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
 }
 .stage-nav button:disabled{opacity:.35;cursor:default}
-@media(max-width:640px){.panel{grid-template-columns:1fr}.stage-nav{margin-left:0;width:100%}}
+@media(max-width:640px){.panel{grid-template-columns:1fr}}
 
 /* ================= phone ================= */
 .phone-wrap{display:flex;justify-content:center}
@@ -382,10 +383,10 @@ svg{display:block}
       <div class="phint" id="hintCycle"></div>
     </div>
     <div class="pgroup">
-      <label>Чекап в цикле</label>
-      <div class="seg" data-key="checkup">
-        <button data-v="1">С чекапом</button>
-        <button data-v="0">Без чекапа</button>
+      <label>Чекап и консультация</label>
+      <div class="seg" data-key="chkAvail">
+        <button data-v="1">Доступны</button>
+        <button data-v="0">Использованы</button>
       </div>
       <div class="phint" id="hintChk"></div>
     </div>
@@ -406,11 +407,9 @@ svg{display:block}
     </div>
     <div class="pactions">
       <button class="pbtn" id="btnPush">Показать пуш на экране блокировки</button>
-      <div class="stage-nav" id="stageNav">
-        <button id="stPrev" aria-label="Назад"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
-        <span id="stLabel">Этап 1 из 4</span>
-        <button id="stNext" aria-label="Дальше"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
-      </div>
+      <div class="stage-nav" id="navC"><span class="nl">Комплекс</span><button data-nav="C" data-d="-1" aria-label="Назад"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><span id="lblC"></span><button data-nav="C" data-d="1" aria-label="Дальше"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div>
+      <div class="stage-nav" id="navK"><span class="nl">Чекап</span><button data-nav="K" data-d="-1" aria-label="Назад"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><span id="lblK"></span><button data-nav="K" data-d="1" aria-label="Дальше"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div>
+      <div class="stage-nav" id="navD"><span class="nl">Консультация</span><button data-nav="D" data-d="-1" aria-label="Назад"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><span id="lblD"></span><button data-nav="D" data-d="1" aria-label="Дальше"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div>
       <button class="pbtn ghost" id="btnReset">Сбросить</button>
     </div>
   </section>
@@ -437,72 +436,67 @@ const CTIMES = ['19:20 - 20:00','20:00 - 20:40'];
 const DOCTOR = {name:'Вероника Ковалева', role:'Врач эндокринолог-диетолог'};
 
 const S = {
-  tariff:'12-2', cycle:2, checkup:0, launch:'client', moment:'month',
+  tariff:'12-2', cycle:2, chkAvail:1, launch:'client', moment:'month',
   pushed:false, launched:false, stage:-1,
+  /* независимые дорожки: чекап 0..4, консультация 0..2 */
+  chk:0, con:0,
   screen:'home', sheet:null, sheetMode:'full', step:0, editAddr:false,
   addr:ADDR0, anketa:'без изменений',
   /* заявка на забор крови */
-  bstep:1, bway:null, bday:2, booked:false, fromSheet:false,
+  bstep:1, bway:null, bday:2, fromSheet:false,
   /* консультация */
   cday:0, ctime:0, cfmt:'phone', consult:null,
   form:{meds:false, preg:false}, bump:false,
 };
 
 function tariff(){ return TARIFFS[S.tariff]; }
-function defaultCheckup(){ return tariff().chk.includes(S.cycle) ? 1 : 0; }
-function usedCheckupsBefore(){ return tariff().chk.filter(c => c < S.cycle).length; }
-function checkupsLeftBeforeLaunch(){ return tariff().checkups - usedCheckupsBefore(); }
+function chkBaseRaw(){ const t = tariff(); return Math.max(0, t.checkups - Math.min(S.cycle - 1, t.checkups)); }
+function chkBase(){ return S.chkAvail ? chkBaseRaw() : 0; }
 function counters(){
   const t = tariff();
   const done = S.launched ? 1 : 0;
-  const chkUsed = usedCheckupsBefore() + (S.launched && S.checkup ? 1 : 0);
   return {
     complexes:[Math.max(0, t.complexes - (S.cycle - 1) - done), t.complexes],
-    checkups:[Math.max(0, t.checkups - chkUsed), t.checkups],
-    consults:[Math.max(0, t.consults - chkUsed), t.consults],
+    checkups:[Math.max(0, chkBase() - (S.chk >= 1 ? 1 : 0)), t.checkups],
+    consults:[Math.max(0, chkBase() - (S.con >= 1 ? 1 : 0)), t.consults],
   };
 }
 function bloodWhen(){
   const d = WEEK[S.bday];
   return `${d[1]} сентября, ${S.bway === 'home' ? 'выезд медсестры на дом' : LAB}`;
 }
-
-/* статусы карточки: названия и тексты из записи экрана и макетов.
-   В цикле с чекапом две дорожки: комплекс (первая строка) и чекап (вторая) */
+/* дорожка комплекса (карточка заказа). Названия из записи экрана и макетов */
 function stages(){
   const n = S.cycle;
-  const consultRow = S.consult ? {t:'Ожидайте консультацию с врачом', sub:`${S.consult.date}, ${S.consult.time}`, link:'Изменить или отменить', icon:'doc'} : null;
-  const wait = {t:'Комплекс ожидает производство', sub:'Все компоненты готовы, скоро начнётся изготовление', link:'Изучить формулу'};
-  const prod = {t:'Идет производство комплекса под вас', sub:`Комплекс №${n} собирают по вашей формуле, обычно это занимает две-три недели`, link:'Подробности'};
-  const ship = {t:'Ваш витаминный комплекс уже готов и спешит к вам', sub:S.addr, link:'Подробности'};
-  const ask  = {t:'Уже получили заказ?', sub:S.addr, kind:'ask'};
-  if (!S.checkup) return [
-    {rows:[wait]},
-    {rows:[prod], push:['Ваша формула отправлена в производство', 'Соберём комплекс и пришлём трек-код']},
-    {rows:[ship], push:['Ваш комплекс в пути', 'А пока ознакомьтесь с рекомендациями по приему']},
-    {rows:[ask], push:['Посылка доставлена', 'Подтвердите получение комплекса в приложении']},
+  return [
+    {rows:[{t:'Готовим формулу витаминного комплекса', sub:'Врач учитывает ваши последние анализы и анкету'}]},
+    {rows:[{t:'Комплекс ожидает производство', sub:'Все компоненты готовы, скоро начнётся изготовление', link:'Изучить формулу'}], push:['Формула готова', `Комплекс №${n} передаём в производство`]},
+    {rows:[{t:'Идет производство комплекса под вас', sub:`Комплекс №${n} собирают по вашей формуле, обычно это занимает две-три недели`, link:'Подробности'}], push:['Ваша формула отправлена в производство', 'Соберём комплекс и пришлём трек-код']},
+    {rows:[{t:'Ваш витаминный комплекс уже готов и спешит к вам', sub:S.addr, link:'Подробности'}], push:['Ваш комплекс в пути', 'А пока ознакомьтесь с рекомендациями по приему']},
+    {rows:[{t:'Уже получили заказ?', sub:S.addr, kind:'ask'}], push:['Посылка доставлена', 'Подтвердите получение комплекса в приложении']},
     {ok:true},
   ];
-  const waitChk = {t:`Комплекс №${n} ждёт результатов чекапа`, sub:'Соберём формулу по свежим анализам, затем производство и доставка займут около месяца'};
-  const chkRows = [
-    {t:'Оставить заявку на забор крови', sub:'Согласовать дату и время взятия анализа', btn:{label:'Оставить заявку', act:'bloodStart'}, icon:'drop'},
+}
+/* дорожка чекапа: доступен в любой момент программы */
+const CHK_PUSH = [null, ['Заявка на забор крови принята', 'Лаборатория подтвердит время в течение дня'], ['Забор крови подтверждён', `Вас будут ожидать в лаборатории ${LAB}`], ['Как прошел забор крови?', 'Ваша оценка поможет нам стать лучше'], ['Результаты анализов Bioniq', 'Сообщение от автоматической системы доставки результатов']];
+function chkRow(){
+  return [
+    {t:'Оставить заявку на забор крови', sub:'Чекап доступен, сдать анализы можно в любой момент программы', link:'Оставить заявку', linkAct:'bloodStart', icon:'drop'},
     {t:'Ожидайте назначения забора крови', sub:bloodWhen(), link:'Отменить запись', icon:'drop'},
     {t:'Ожидайте забора крови', sub:bloodWhen(), link:'Отменить запись', note:'Анализы сдаются натощак — это важно для корректных результатов', icon:'drop'},
     {t:'Результаты анализов готовятся', sub:'Медси', icon:'drop'},
-  ];
-  const results = {t:'Результаты чекапа готовы', sub:'Показатели уже в разделе «Аналитика»', link:'Смотреть', icon:'drop'};
+    {t:'Результаты чекапа готовы', sub:'Показатели в разделе «Аналитика», врач учтёт их в следующей формуле', link:'Смотреть', icon:'drop'},
+  ][S.chk];
+}
+/* дорожка консультации: тоже в любой момент */
+const CON_PUSH = [null, ['Консультация с врачом', 'В назначенное время специалист свяжется с вами'], ['Рекомендации врача готовы', 'Посмотрите их в разделе «Материалы»']];
+function conRow(){
+  const c = S.consult || {date:'28 сентября', time:CTIMES[0]};
   return [
-    {rows:[waitChk, chkRows[0]]},
-    {rows:[waitChk, chkRows[1]], push:['Заявка на забор крови принята', 'Лаборатория подтвердит время в течение дня']},
-    {rows:[waitChk, chkRows[2]], push:['Забор крови подтверждён', `Вас будут ожидать в лаборатории ${LAB}`]},
-    {rows:[waitChk, chkRows[3]], push:['Как прошел забор крови?', 'Ваша оценка поможет нам стать лучше']},
-    {rows:[{t:'Готовим формулу витаминного комплекса', sub:'Проконсультироваться с врачом', link:S.consult ? null : 'Назначить дату и время', linkAct:'consultStart'}, consultRow, results], push:['Результаты анализов Bioniq', 'Сообщение от автоматической системы доставки результатов']},
-    {rows:[wait, consultRow], push:['Консультация с врачом', 'В назначенное время специалист свяжется с вами']},
-    {rows:[prod], push:['Ваша формула отправлена в производство', 'Соберём комплекс и пришлём трек-код']},
-    {rows:[ship], push:['Ваш комплекс в пути', 'А пока ознакомьтесь с рекомендациями по приему']},
-    {rows:[ask], push:['Посылка доставлена', 'Подтвердите получение комплекса в приложении']},
-    {ok:true},
-  ];
+    {t:'Консультация с врачом', sub:'Доступна в любой момент, обсудите анализы и самочувствие', link:'Назначить дату и время', linkAct:'consultStart', icon:'doc'},
+    {t:'Ожидайте консультацию с врачом', sub:`${c.date}, ${c.time}`, link:'Изменить или отменить', icon:'doc'},
+    {t:'Консультация прошла', sub:`${c.date}, ${DOCTOR.name}`, link:'Рекомендации врача', icon:'doc'},
+  ][S.con];
 }
 
 /* ================= svg ================= */
@@ -604,7 +598,7 @@ function statusRow(st, iconKey){
 
 function intakeCard(days, extra){
   return `<div class="icard">
-    <div class="dark"><div class="dtag">${tariff().tag} · КОМПЛЕКС №${S.launched && days === 90 ? S.cycle : S.cycle - 1}</div><div class="drow"><div class="days">${days}</div><button class="btn">Принять</button></div></div>
+    <div class="dark"><div class="dtag">${tariff().tag} · КОМПЛЕКС №${days === 90 ? S.cycle : S.cycle - 1}</div><div class="drow"><div class="days">${days}</div><button class="btn">Принять</button></div></div>
     ${calendar()}
     ${leftBlock(false)}
     ${extra || ''}
@@ -612,20 +606,22 @@ function intakeCard(days, extra){
 }
 
 function programCard(){
-  /* тёмная карточка текущего комплекса и календарь видны всегда: приём продолжается,
-     пока следующий комплекс в работе */
+  /* карточка программы: приём текущего комплекса, календарь, остаток, чекап и консультация.
+     Ниже, пока следующий комплекс в работе, карточка заказа */
   const st = S.launched ? stages() : null;
   const cur = st ? st[S.stage] : null;
-  if (cur && cur.ok) return intakeCard(90);
-  const extra = (!S.launched && S.moment === 'month') ? `<div class="srow"><div class="ico">${I.list}</div><div class="body">
+  const done = !!(cur && cur.ok);
+  let extra = '';
+  if (!S.launched && S.moment === 'month') extra += `<div class="srow"><div class="ico">${I.list}</div><div class="body">
       <h2>Пора заказать следующий комплекс</h2>
       <div class="sub">Витаминов хватит до 24 октября. Производство и доставка занимают около месяца, закажите сейчас, чтобы не делать перерыв</div>
-      <div><button class="btn" data-act="openOrder">Заказать</button></div></div></div>` : '';
-  let h = intakeCard(S.moment === 'month' ? 30 : 58, extra);
-  if (!S.launched) return h;
+      <div><button class="btn" data-act="openOrder">Заказать</button></div></div></div>`;
+  if (S.chkAvail){ const r = chkRow(); extra += statusRow(r, r.icon); const c = conRow(); extra += statusRow(c, c.icon); }
+  let h = intakeCard(done ? 90 : (S.moment === 'month' ? 30 : 58), extra);
+  if (!S.launched || done) return h;
   const pct = Math.round(((S.stage + 1) / st.length) * 100);
   h += `<div class="pcard">${tagRow()}<div class="bar"><i style="width:${pct}%"></i></div>`;
-  cur.rows.filter(Boolean).forEach(r => { h += statusRow(r, r.icon); });
+  cur.rows.forEach(r => { h += statusRow(r, r.icon); });
   if (S.launch === 'manager' && S.stage < 2) h += `<div class="srow"><div class="ico ava">АК</div><div class="body">
     <h2>Следующий цикл запустила ваш менеджер Алина</h2>
     <div class="sub">Комплекс №${S.cycle} уже в работе. Доставим по адресу: ${S.addr}</div>
@@ -633,7 +629,6 @@ function programCard(){
   </div></div>`;
   return h + `</div>`;
 }
-
 function renderHome(){
   return `<div class="app">
     <div class="hdr"><svg class="logo" viewBox="0 0 299.6 82.4"><use href="#wm"/></svg>
@@ -698,11 +693,10 @@ function sheetSteps(){
   if (S.sheetMode === 'bloodDone') return ['bloodDone'];
   if (S.sheetMode === 'consultDone') return ['consultDone'];
   const s = ['anketa','address'];
-  if (S.checkup) s.push('blood');
+  if (S.chkAvail && S.chk === 0) s.push('blood');
   s.push('done');
   return s;
 }
-
 function renderSheet(){
   const steps = sheetSteps();
   const step = steps[S.step];
@@ -728,17 +722,17 @@ function renderSheet(){
     }
   } else if (step === 'blood'){
     h += `<h3>Запишитесь на забор крови</h3>
-      <p>В этом цикле чекап. Заявка занимает минуту: способ сдачи, лаборатория и удобная дата, точное время подтвердим после обработки.</p>
+      <p>У вас есть чекап по программе, сдать его можно в любой момент. Удобно сделать это сейчас, чтобы врач учёл свежие анализы в формуле.</p>
       <button class="btn full" data-act="bloodStart">Оставить заявку</button>
       <button class="btn full sec" data-act="bloodLater">Позже, из карточки программы</button>`;
   } else if (step === 'done'){
     h += `<div class="done-ic">${I.checkW}</div>
       <h3>Комплекс №${S.cycle} в работе</h3>
-      <p>${S.checkup ? 'Сначала обновим анализы, затем врач соберёт формулу и мы запустим производство.' : 'Запускаем производство по вашей формуле. Комплекс приедет примерно через месяц.'}</p>
+      <p>Врач соберёт формулу и мы запустим производство. Комплекс приедет примерно через месяц, приём текущего продолжается.</p>
       <div class="sum">
         <div><span>Анкета</span><b>${S.anketa}</b></div>
         <div><span>Адрес</span><b>${S.addr}</b></div>
-        ${S.checkup ? `<div><span>Забор крови</span><b>${S.booked ? bloodWhen() : 'заявку оставите позже'}</b></div>` : ''}
+        ${S.chkAvail ? `<div><span>Забор крови</span><b>${S.chk >= 1 ? bloodWhen() : 'запишетесь, когда удобно'}</b></div>` : ''}
       </div>
       <button class="btn full" data-act="finish">Вернуться на главную</button>`;
   } else if (step === 'bloodDone'){
@@ -827,60 +821,57 @@ function renderPanel(){
     seg.querySelectorAll('button').forEach(b => {
       b.classList.toggle('on', String(S[key]) === b.dataset.v);
       if (key === 'cycle') b.disabled = Number(b.dataset.v) > tariff().cycles;
-      if (key === 'checkup') b.disabled = (b.dataset.v === '1' && checkupsLeftBeforeLaunch() === 0);
+      if (key === 'chkAvail') b.disabled = (b.dataset.v === '1' && chkBaseRaw() === 0);
     });
   });
   document.getElementById('hintCycle').textContent = tariff().cycles === 2 ? 'В тарифе на 6 месяцев два комплекса, второй и последний' : '';
-  document.getElementById('hintChk').textContent = checkupsLeftBeforeLaunch() === 0 ? 'Чекапы по тарифу уже использованы' : (defaultCheckup() ? 'По плану тарифа в этом цикле чекап' : 'По плану тарифа в этом цикле чекапа нет');
+  document.getElementById('hintChk').textContent = chkBaseRaw() === 0 ? 'По тарифу к этому циклу уже использованы' : (S.chkAvail ? 'Клиент пользуется ими в любой момент, не привязаны к циклу' : 'Строк чекапа и консультации в карточке нет');
   document.getElementById('hintMoment').textContent = S.moment === 'month' ? 'Блок «Пора заказать» в карточке виден и без пуша' : 'Комплекса хватает больше чем на месяц, напоминаний нет';
   const push = document.getElementById('btnPush');
   push.hidden = S.launch === 'manager' || S.launched || S.moment !== 'month';
   push.disabled = S.pushed;
   push.textContent = S.pushed ? 'Пуш отправлен, повторно не беспокоим' : 'Показать пуш на экране блокировки';
-  const nav = document.getElementById('stageNav');
-  nav.hidden = !S.launched;
-  if (S.launched){
-    const st = stages();
-    document.getElementById('stLabel').textContent = `Этап ${S.stage + 1} из ${st.length}`;
-    document.getElementById('stPrev').disabled = S.stage === 0;
-    document.getElementById('stNext').disabled = S.stage === st.length - 1;
-  }
+  const st = stages(); const done = S.launched && st[S.stage].ok;
+  const navC = document.getElementById('navC'); navC.hidden = !S.launched || done;
+  document.getElementById('lblC').textContent = `${S.stage + 1} из ${st.length}`;
+  navC.querySelector('[data-d="-1"]').disabled = S.stage <= 0; navC.querySelector('[data-d="1"]').disabled = S.stage >= st.length - 1;
+  const navK = document.getElementById('navK'); navK.hidden = !S.chkAvail;
+  document.getElementById('lblK').textContent = `${S.chk + 1} из 5`;
+  navK.querySelector('[data-d="-1"]').disabled = S.chk <= 0; navK.querySelector('[data-d="1"]').disabled = S.chk >= 4;
+  const navD = document.getElementById('navD'); navD.hidden = !S.chkAvail;
+  document.getElementById('lblD').textContent = `${S.con + 1} из 3`;
+  navD.querySelector('[data-d="-1"]').disabled = S.con <= 0; navD.querySelector('[data-d="1"]').disabled = S.con >= 2;
 }
-
 function resetFlow(){
-  Object.assign(S, {pushed:false, launched:false, stage:-1, screen:'home', sheet:null, sheetMode:'full', step:0, editAddr:false, addr:ADDR0, anketa:'без изменений', bstep:1, bway:null, bday:2, booked:false, fromSheet:false, cday:0, ctime:0, cfmt:'phone', consult:null, form:{meds:false, preg:false}});
+  Object.assign(S, {pushed:false, launched:false, stage:-1, chk:0, con:0, screen:'home', sheet:null, sheetMode:'full', step:0, editAddr:false, addr:ADDR0, anketa:'без изменений', bstep:1, bway:null, bday:2, fromSheet:false, cday:0, ctime:0, cfmt:'phone', consult:null, form:{meds:false, preg:false}});
   if (S.launch === 'manager'){ S.launched = true; S.stage = 0; }
   scrollPos = 0;
 }
-
-function advance(dir){
-  const st = stages();
-  let next = S.stage + dir;
-  /* этап «Оставить заявку» пропускаем, если заявка уже оставлена */
-  if (S.checkup && next === 0 && S.booked) next = dir > 0 ? 1 : 0;
-  next = Math.max(0, Math.min(st.length - 1, next));
-  if (S.checkup && !S.booked && next >= 1 && dir > 0){ S.booked = true; S.bway = S.bway || 'lab'; }
-  S.stage = next; scrollPos = 0; render();
-  if (dir > 0 && st[next].push) showPush(st[next].push);
+function advance(track, dir){
+  const clamp = (v, max) => Math.max(0, Math.min(max, v));
+  let push = null;
+  if (track === 'C'){ const st = stages(); S.stage = clamp(S.stage + dir, st.length - 1); push = st[S.stage].push; }
+  if (track === 'K'){ S.chk = clamp(S.chk + dir, 4); if (S.chk >= 1 && !S.bway) S.bway = 'lab'; push = CHK_PUSH[S.chk]; }
+  if (track === 'D'){ S.con = clamp(S.con + dir, 2); if (S.con >= 1 && !S.consult) S.consult = {date:'28 сентября', time:CTIMES[0], fmt:'phone'}; if (S.con === 0) S.consult = null; push = CON_PUSH[S.con]; }
+  scrollPos = 0; render();
+  if (dir > 0 && push) showPush(push);
 }
-
 document.getElementById('panel').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   const seg = b.closest('.seg');
   if (seg){
     const key = seg.dataset.key, v = b.dataset.v;
-    if (key === 'tariff'){ S.tariff = v; if (S.cycle > tariff().cycles) S.cycle = 2; S.checkup = defaultCheckup(); }
-    else if (key === 'cycle'){ S.cycle = Number(v); S.checkup = defaultCheckup(); }
-    else if (key === 'checkup'){ S.checkup = Number(v); }
+    if (key === 'tariff'){ S.tariff = v; if (S.cycle > tariff().cycles) S.cycle = 2; S.chkAvail = chkBaseRaw() > 0 ? 1 : 0; }
+    else if (key === 'cycle'){ S.cycle = Number(v); S.chkAvail = chkBaseRaw() > 0 ? 1 : 0; }
+    else if (key === 'chkAvail'){ S.chkAvail = Number(v); }
     else if (key === 'launch'){ S.launch = v; }
     else if (key === 'moment'){ S.moment = v; }
-    if (checkupsLeftBeforeLaunch() === 0) S.checkup = 0;
+    if (chkBaseRaw() === 0) S.chkAvail = 0;
     resetFlow(); render(); return;
   }
   if (b.id === 'btnPush'){ S.pushed = true; S.screen = 'lock'; render(); }
   if (b.id === 'btnReset'){ resetFlow(); render(); }
-  if (b.id === 'stPrev'){ advance(-1); }
-  if (b.id === 'stNext'){ advance(1); }
+  if (b.dataset.nav){ advance(b.dataset.nav, Number(b.dataset.d)); }
 });
 
 /* ================= phone actions ================= */
@@ -909,53 +900,9 @@ function next(){
   else closeSheet();
 }
 function finishLaunch(){
-  S.launched = true; S.bump = true;
-  S.stage = (S.checkup && !S.booked) ? 0 : (S.checkup ? 1 : 0);
+  S.launched = true; S.bump = true; S.stage = 0;
 }
-
-screen.addEventListener('click', e => {
-  const el = e.target.closest('[data-act]'); if (!el) return;
-  const app = screen.querySelector('.app'); if (app) scrollPos = app.scrollTop;
-  const a = el.dataset.act;
-  switch (a){
-    case 'openPush': S.screen = 'home'; scrollPos = 0; render(); setTimeout(() => openSheet('full', 0), 350); break;
-    case 'unlock': S.screen = 'home'; scrollPos = 0; render(); break;
-    case 'openOrder': openSheet('full', 0); break;
-    case 'anketaNo': S.anketa = 'без изменений'; next(); break;
-    case 'anketaYes': S.screen = 'form'; render(); break;
-    case 'formBack': S.screen = 'home'; render(); break;
-    case 'formSave': S.anketa = 'обновлена'; S.screen = 'home'; next(); break;
-    case 'swMeds': S.form.meds = !S.form.meds; render(); break;
-    case 'swPreg': S.form.preg = !S.form.preg; render(); break;
-    case 'editAddrInline': S.editAddr = true; render(); break;
-    case 'saveAddr': { const v = document.getElementById('addrIn').value.trim(); if (v) S.addr = v; S.editAddr = false; if (S.sheetMode === 'addr'){ closeSheet(); setTimeout(() => toast('Адрес обновили, менеджер увидит его в заказе'), 320); } else next(); break; }
-    case 'confirmAddr': next(); break;
-    case 'bloodLater': S.booked = false; next(); break;
-    /* заявка на забор крови */
-    case 'bloodStart': S.fromSheet = !!S.sheet; S.bstep = 1; S.bway = null; S.sheet = null; S.screen = 'blood'; render(); break;
-    case 'bway': S.bway = el.dataset.v; render(); break;
-    case 'bday': S.bday = Number(el.dataset.i); render(); break;
-    case 'bloodNext': S.bstep++; render(); break;
-    case 'bloodBack': S.bstep--; render(); break;
-    case 'bloodCancel': S.screen = 'home'; if (S.fromSheet){ S.fromSheet = false; openSheet('full', sheetSteps().indexOf('blood')); } else render(); break;
-    case 'bloodSubmit': S.booked = true; S.screen = 'home'; render(); openSheet('bloodDone', 0); break;
-    case 'bloodOk': closeSheet(() => { if (S.fromSheet){ S.fromSheet = false; S.sheet = true; S.sheetMode = 'full'; S.step = sheetSteps().indexOf('done'); } else if (S.launched && S.stage === 0){ S.stage = 1; } }); break;
-    /* консультация */
-    case 'consultStart': S.screen = 'consult'; render(); break;
-    case 'cday': S.cday = Number(el.dataset.i); render(); break;
-    case 'ctime': S.ctime = Number(el.dataset.i); render(); break;
-    case 'cfmt': S.cfmt = el.dataset.v; render(); break;
-    case 'consultCancel': S.screen = 'home'; render(); break;
-    case 'consultSubmit': S.consult = {date:`${WEEK[S.cday][1]} сентября`, time:CTIMES[S.ctime], fmt:S.cfmt}; S.screen = 'home'; render(); openSheet('consultDone', 0); break;
-    case 'consultOk': closeSheet(); break;
-    case 'finish': finishLaunch(); closeSheet(); break;
-    case 'gotIt': S.stage = stages().length - 1; scrollPos = 0; render(); break;
-    case 'notYet': toast('Напишите в чат, менеджер поможет'); break;
-    case 'editAddr': S.editAddr = true; openSheet('addr', 0); break;
-  }
-});
-
-S.checkup = defaultCheckup();
+S.chkAvail = chkBaseRaw() > 0 ? 1 : 0;
 render();
 </script>
 </body>
