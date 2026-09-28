@@ -467,23 +467,41 @@ function bloodWhen(){
   return `${d[1]} сентября, ${S.bway === 'home' ? 'выезд медсестры на дом' : LAB}`;
 }
 
-/* статусы карточки: названия и тексты из записи экрана и макетов */
+/* статусы карточки: названия и тексты из записи экрана и макетов.
+   В цикле с чекапом две дорожки: комплекс (первая строка) и чекап (вторая) */
 function stages(){
   const n = S.cycle;
   const consultRow = S.consult ? {t:'Ожидайте консультацию с врачом', sub:`${S.consult.date}, ${S.consult.time}`, link:'Изменить или отменить', icon:'doc'} : null;
-  const wait = {t:'Комплекс ожидает производство', sub:'Все компоненты готовы, скоро начнётся изготовление', link:'Изучить формулу', second:consultRow, push:['Консультация с врачом', 'В назначенное время специалист свяжется с вами']};
-  const prod = {t:'Идет производство комплекса под вас', sub:`Комплекс №${n} собирают по вашей формуле, обычно это занимает две-три недели`, link:'Подробности', push:['Ваша формула отправлена в производство', 'Соберём комплекс и пришлём трек-код']};
-  const ship = {t:'Ваш витаминный комплекс уже готов и спешит к вам', sub:S.addr, link:'Подробности', push:['Ваш комплекс в пути', 'А пока ознакомьтесь с рекомендациями по приему']};
-  const ask  = {t:'Уже получили заказ?', sub:S.addr, kind:'ask', push:['Посылка доставлена', 'Подтвердите получение комплекса в приложении']};
-  const intake = {t:'Приём', ok:true};
-  if (!S.checkup) return [{...wait, second:null, push:null}, prod, ship, ask, intake];
+  const wait = {t:'Комплекс ожидает производство', sub:'Все компоненты готовы, скоро начнётся изготовление', link:'Изучить формулу'};
+  const prod = {t:'Идет производство комплекса под вас', sub:`Комплекс №${n} собирают по вашей формуле, обычно это занимает две-три недели`, link:'Подробности'};
+  const ship = {t:'Ваш витаминный комплекс уже готов и спешит к вам', sub:S.addr, link:'Подробности'};
+  const ask  = {t:'Уже получили заказ?', sub:S.addr, kind:'ask'};
+  if (!S.checkup) return [
+    {rows:[wait]},
+    {rows:[prod], push:['Ваша формула отправлена в производство', 'Соберём комплекс и пришлём трек-код']},
+    {rows:[ship], push:['Ваш комплекс в пути', 'А пока ознакомьтесь с рекомендациями по приему']},
+    {rows:[ask], push:['Посылка доставлена', 'Подтвердите получение комплекса в приложении']},
+    {ok:true},
+  ];
+  const waitChk = {t:`Комплекс №${n} ждёт результатов чекапа`, sub:'Соберём формулу по свежим анализам, затем производство и доставка займут около месяца'};
+  const chkRows = [
+    {t:'Оставить заявку на забор крови', sub:'Согласовать дату и время взятия анализа', btn:{label:'Оставить заявку', act:'bloodStart'}, icon:'drop'},
+    {t:'Ожидайте назначения забора крови', sub:bloodWhen(), link:'Отменить запись', icon:'drop'},
+    {t:'Ожидайте забора крови', sub:bloodWhen(), link:'Отменить запись', note:'Анализы сдаются натощак — это важно для корректных результатов', icon:'drop'},
+    {t:'Результаты анализов готовятся', sub:'Медси', icon:'drop'},
+  ];
+  const results = {t:'Результаты чекапа готовы', sub:'Показатели уже в разделе «Аналитика»', link:'Смотреть', icon:'drop'};
   return [
-    {t:'Оставить заявку на забор крови', sub:'Согласовать дату и время взятия анализа', btn:{label:'Оставить заявку', act:'bloodStart'}},
-    {t:'Ожидайте назначения забора крови', sub:bloodWhen(), link:'Отменить запись', push:['Заявка на забор крови принята', 'Лаборатория подтвердит время в течение дня']},
-    {t:'Ожидайте забора крови', sub:bloodWhen(), link:'Отменить запись', note:'Анализы сдаются натощак — это важно для корректных результатов', push:['Забор крови подтверждён', `Вас будут ожидать в лаборатории ${LAB}`]},
-    {t:'Результаты анализов готовятся', sub:'Медси', push:['Как прошел забор крови?', 'Ваша оценка поможет нам стать лучше']},
-    {t:'Готовим формулу витаминного комплекса', sub:'Проконсультироваться с врачом', link:S.consult ? null : 'Назначить дату и время', linkAct:'consultStart', second:consultRow, push:['Результаты анализов Bioniq', 'Сообщение от автоматической системы доставки результатов']},
-    wait, prod, ship, ask, intake,
+    {rows:[waitChk, chkRows[0]]},
+    {rows:[waitChk, chkRows[1]], push:['Заявка на забор крови принята', 'Лаборатория подтвердит время в течение дня']},
+    {rows:[waitChk, chkRows[2]], push:['Забор крови подтверждён', `Вас будут ожидать в лаборатории ${LAB}`]},
+    {rows:[waitChk, chkRows[3]], push:['Как прошел забор крови?', 'Ваша оценка поможет нам стать лучше']},
+    {rows:[{t:'Готовим формулу витаминного комплекса', sub:'Проконсультироваться с врачом', link:S.consult ? null : 'Назначить дату и время', linkAct:'consultStart'}, consultRow, results], push:['Результаты анализов Bioniq', 'Сообщение от автоматической системы доставки результатов']},
+    {rows:[wait, consultRow], push:['Консультация с врачом', 'В назначенное время специалист свяжется с вами']},
+    {rows:[prod], push:['Ваша формула отправлена в производство', 'Соберём комплекс и пришлём трек-код']},
+    {rows:[ship], push:['Ваш комплекс в пути', 'А пока ознакомьтесь с рекомендациями по приему']},
+    {rows:[ask], push:['Посылка доставлена', 'Подтвердите получение комплекса в приложении']},
+    {ok:true},
   ];
 }
 
@@ -494,6 +512,7 @@ const I = {
   basket:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h16l-1.5 9h-13z"/><path d="M8 10l2-5M16 10l-2-5"/></svg>',
   list:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="8" r="1.6"/><circle cx="6" cy="16" r="1.6"/><path d="M11 8h8M11 16h8"/></svg>',
   doc:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>',
+  drop:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg>',
   chev:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>',
   chevR:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>',
   chevD:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#05131A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
@@ -570,7 +589,7 @@ function calendar(){
 }
 
 function tagRow(){
-  return `<div class="tag"><div><b>${tariff().tag}</b><span>${ORDER}</span></div><div class="chev">${I.chevD}</div></div>`;
+  return `<div class="tag"><div><b>${tariff().tag} · КОМПЛЕКС №${S.cycle}</b><span>${ORDER}</span></div><div class="chev">${I.chevD}</div></div>`;
 }
 
 function statusRow(st, iconKey){
@@ -585,7 +604,7 @@ function statusRow(st, iconKey){
 
 function intakeCard(days, extra){
   return `<div class="icard">
-    <div class="dark"><div class="dtag">${tariff().tag}</div><div class="drow"><div class="days">${days}</div><button class="btn">Принять</button></div></div>
+    <div class="dark"><div class="dtag">${tariff().tag} · КОМПЛЕКС №${S.launched && days === 90 ? S.cycle : S.cycle - 1}</div><div class="drow"><div class="days">${days}</div><button class="btn">Принять</button></div></div>
     ${calendar()}
     ${leftBlock(false)}
     ${extra || ''}
@@ -593,26 +612,26 @@ function intakeCard(days, extra){
 }
 
 function programCard(){
-  if (!S.launched){
-    const extra = S.moment === 'month' ? `<div class="srow"><div class="ico">${I.list}</div><div class="body">
+  /* тёмная карточка текущего комплекса и календарь видны всегда: приём продолжается,
+     пока следующий комплекс в работе */
+  const st = S.launched ? stages() : null;
+  const cur = st ? st[S.stage] : null;
+  if (cur && cur.ok) return intakeCard(90);
+  const extra = (!S.launched && S.moment === 'month') ? `<div class="srow"><div class="ico">${I.list}</div><div class="body">
       <h2>Пора заказать следующий комплекс</h2>
       <div class="sub">Витаминов хватит до 24 октября. Производство и доставка занимают около месяца, закажите сейчас, чтобы не делать перерыв</div>
       <div><button class="btn" data-act="openOrder">Заказать</button></div></div></div>` : '';
-    return intakeCard(S.moment === 'month' ? 30 : 58, extra);
-  }
-  const st = stages(), cur = st[S.stage];
-  if (cur.ok) return intakeCard(90);
+  let h = intakeCard(S.moment === 'month' ? 30 : 58, extra);
+  if (!S.launched) return h;
   const pct = Math.round(((S.stage + 1) / st.length) * 100);
-  let h = `<div class="pcard">${tagRow()}<div class="bar"><i style="width:${pct}%"></i></div>`;
-  h += statusRow(cur);
-  if (cur.second) h += statusRow(cur.second, cur.second.icon);
+  h += `<div class="pcard">${tagRow()}<div class="bar"><i style="width:${pct}%"></i></div>`;
+  cur.rows.filter(Boolean).forEach(r => { h += statusRow(r, r.icon); });
   if (S.launch === 'manager' && S.stage < 2) h += `<div class="srow"><div class="ico ava">АК</div><div class="body">
     <h2>Следующий цикл запустила ваш менеджер Алина</h2>
     <div class="sub">Комплекс №${S.cycle} уже в работе. Доставим по адресу: ${S.addr}</div>
     <div><button class="lnk sm" data-act="editAddr">Изменить адрес</button></div>
   </div></div>`;
-  h += leftBlock(true) + `</div>`;
-  return h;
+  return h + `</div>`;
 }
 
 function renderHome(){
