@@ -902,6 +902,49 @@ function next(){
 function finishLaunch(){
   S.launched = true; S.bump = true; S.stage = 0;
 }
+
+screen.addEventListener('click', e => {
+  const el = e.target.closest('[data-act]'); if (!el) return;
+  const app = screen.querySelector('.app'); if (app) scrollPos = app.scrollTop;
+  const a = el.dataset.act;
+  switch (a){
+    case 'openPush': S.screen = 'home'; scrollPos = 0; render(); setTimeout(() => openSheet('full', 0), 350); break;
+    case 'unlock': S.screen = 'home'; scrollPos = 0; render(); break;
+    case 'openOrder': openSheet('full', 0); break;
+    case 'anketaNo': S.anketa = 'без изменений'; next(); break;
+    case 'anketaYes': S.screen = 'form'; render(); break;
+    case 'formBack': S.screen = 'home'; render(); break;
+    case 'formSave': S.anketa = 'обновлена'; S.screen = 'home'; next(); break;
+    case 'swMeds': S.form.meds = !S.form.meds; render(); break;
+    case 'swPreg': S.form.preg = !S.form.preg; render(); break;
+    case 'editAddrInline': S.editAddr = true; render(); break;
+    case 'saveAddr': { const v = document.getElementById('addrIn').value.trim(); if (v) S.addr = v; S.editAddr = false; if (S.sheetMode === 'addr'){ closeSheet(); setTimeout(() => toast('Адрес обновили, менеджер увидит его в заказе'), 320); } else next(); break; }
+    case 'confirmAddr': next(); break;
+    case 'bloodLater': next(); break;
+    /* заявка на забор крови, из sheet заказа или из строки чекапа в карточке */
+    case 'bloodStart': S.fromSheet = !!S.sheet; S.bstep = 1; S.bway = null; S.sheet = null; S.screen = 'blood'; render(); break;
+    case 'bway': S.bway = el.dataset.v; render(); break;
+    case 'bday': S.bday = Number(el.dataset.i); render(); break;
+    case 'bloodNext': S.bstep++; render(); break;
+    case 'bloodBack': S.bstep--; render(); break;
+    case 'bloodCancel': S.screen = 'home'; if (S.fromSheet){ S.fromSheet = false; openSheet('full', sheetSteps().indexOf('blood')); } else render(); break;
+    case 'bloodSubmit': S.chk = 1; S.screen = 'home'; render(); openSheet('bloodDone', 0); break;
+    case 'bloodOk': closeSheet(() => { if (S.fromSheet){ S.fromSheet = false; S.sheet = true; S.sheetMode = 'full'; S.step = sheetSteps().indexOf('done'); } }); break;
+    /* консультация */
+    case 'consultStart': S.screen = 'consult'; render(); break;
+    case 'cday': S.cday = Number(el.dataset.i); render(); break;
+    case 'ctime': S.ctime = Number(el.dataset.i); render(); break;
+    case 'cfmt': S.cfmt = el.dataset.v; render(); break;
+    case 'consultCancel': S.screen = 'home'; render(); break;
+    case 'consultSubmit': S.consult = {date:`${WEEK[S.cday][1]} сентября`, time:CTIMES[S.ctime], fmt:S.cfmt}; S.con = 1; S.screen = 'home'; render(); openSheet('consultDone', 0); break;
+    case 'consultOk': closeSheet(); break;
+    case 'finish': finishLaunch(); closeSheet(); break;
+    case 'gotIt': S.stage = stages().length - 1; scrollPos = 0; render(); break;
+    case 'notYet': toast('Напишите в чат, менеджер поможет'); break;
+    case 'editAddr': S.editAddr = true; openSheet('addr', 0); break;
+  }
+});
+
 S.chkAvail = chkBaseRaw() > 0 ? 1 : 0;
 render();
 </script>
